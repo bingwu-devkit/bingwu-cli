@@ -1,4 +1,2 @@
-/** Create a friendly greeting. */
-export function greet(name: string): string {
-  return `Hello, ${name}!`
-}
+export { builtinTemplates } from './templates.js'
+export type { CliTemplate, GithubTemplate, Template, TemplateConfig } from './templates.js'

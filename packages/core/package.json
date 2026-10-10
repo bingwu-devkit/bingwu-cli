@@ -1,15 +1,18 @@
 {
-  "name": "@scope/core",
-  "version": "0.0.0",
-  "description": "Replace this description with your library description.",
-  "homepage": "https://github.com/OWNER/REPOSITORY#readme",
-  "bugs": "https://github.com/OWNER/REPOSITORY/issues",
+  "name": "bingwu-cli",
+  "version": "0.1.0",
+  "description": "收藏 GitHub 模板与第三方脚手架，快速创建项目",
+  "homepage": "https://github.com/bingwu-devkit/bingwu-workspace#readme",
+  "bugs": "https://github.com/bingwu-devkit/bingwu-workspace/issues",
   "license": "MIT",
-  "author": "YOUR_NAME",
+  "author": "BINGWU2003",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OWNER/REPOSITORY.git",
+    "url": "git+https://github.com/bingwu-devkit/bingwu-workspace.git",
     "directory": "packages/core"
+  },
+  "bin": {
+    "bingwu": "./dist/cli.mjs"
   },
   "files": [
     "dist"
@@ -35,6 +38,14 @@
     "prepack": "pnpm build && publint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@clack/prompts": "catalog:",
+    "commander": "catalog:",
+    "env-paths": "catalog:",
+    "execa": "catalog:",
+    "giget": "catalog:",
+    "zod": "catalog:"
   },
   "engines": {
     "node": "^22.18.0 || ^24.0.0"

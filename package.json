@@ -1,19 +1,20 @@
 {
-  "name": "starter-ts",
+  "name": "bingwu-workspace",
   "version": "0.0.0",
   "private": true,
-  "description": "基于 Turborepo、Oxc 和 pnpm 的 TypeScript 库模板",
-  "homepage": "https://github.com/BINGWU2003/starter-ts#readme",
-  "bugs": "https://github.com/BINGWU2003/starter-ts/issues",
+  "description": "bingwu：收藏模板并快速创建项目的个人 CLI",
+  "homepage": "https://github.com/bingwu-devkit/bingwu-workspace#readme",
+  "bugs": "https://github.com/bingwu-devkit/bingwu-workspace/issues",
   "license": "MIT",
   "author": "BINGWU2003",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BINGWU2003/starter-ts.git"
+    "url": "git+https://github.com/bingwu-devkit/bingwu-workspace.git"
   },
   "type": "module",
   "scripts": {
     "build": "turbo run build",
+    "bingwu": "tsx packages/core/src/cli.ts",
     "changeset": "changeset",
     "check": "pnpm format:check && pnpm lint && turbo run typecheck test build",
     "dev": "turbo run dev",

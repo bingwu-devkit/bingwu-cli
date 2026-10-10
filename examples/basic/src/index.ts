@@ -1,3 +1,5 @@
-import { greet } from '@scope/core'
+import { builtinTemplates } from 'bingwu-cli'
 
-console.log(greet('Turborepo'))
+for (const template of builtinTemplates) {
+  console.log(`${template.id}\t${template.name}\t${template.type}`)
+}

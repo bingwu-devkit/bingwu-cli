@@ -10,9 +10,14 @@ engineStrict: true
 pmOnFail: download
 
 catalog:
+  '@clack/prompts': ^1.8.1
   '@changesets/changelog-github': ^1.0.1
   '@changesets/cli': ^3.0.3
   '@types/node': ^22.20.1
+  commander: ^15.0.0
+  env-paths: ^4.0.0
+  execa: ^10.1.0
+  giget: ^3.3.1
   nano-staged: ^1.0.2
   oxfmt: 0.72.0
   oxlint: 1.79.0
@@ -24,3 +29,4 @@ catalog:
   turbo: ^2.11.7
   typescript: 6.0.3
   vitest: ^4.1.11
+  zod: ^4.6.5

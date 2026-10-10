@@ -1,5 +1,5 @@
 {
-  "name": "@scope/example-basic",
+  "name": "@bingwu/example-basic",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@scope/core": "workspace:*"
+    "bingwu-cli": "workspace:*"
   },
   "engines": {
     "node": "^22.18.0 || ^24.0.0"
