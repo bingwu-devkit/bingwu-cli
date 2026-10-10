@@ -1,4 +1,4 @@
-# bingwu
+# bingwu CLI
 
 个人项目创建 CLI：从 GitHub 上统一维护的模板配置读取仓库模板和第三方 npm 脚手架，通过一个命令快速创建项目。
 
@@ -22,17 +22,17 @@ pnpm install
 pnpm bingwu
 ```
 
-`pnpm bingwu` 从当前工作目录运行源码，无需先构建。也可以构建后直接执行：
+`pnpm bingwu` 自动构建 Core 后，从当前工作目录运行 CLI 源码。也可以构建后直接执行：
 
 ```bash
 pnpm build
-node packages/core/dist/cli.mjs list
+node packages/cli/dist/cli.mjs list
 ```
 
 要在其他目录直接使用 `bingwu`，构建后创建全局链接：
 
 ```bash
-pnpm --dir packages/core link --global
+pnpm --dir packages/cli link --global
 bingwu list
 ```
 
@@ -136,9 +136,17 @@ pnpm check
 pnpm --filter @bingwu/example-basic start
 ```
 
-`packages/core` 是可发布的 CLI 包，tsdown 构建 ESM，Vitest 验证远程配置读取与校验、目录保护、交互选择和构建后的命令。自动测试使用模拟 Fetch、临时目录及替身 pnpm，不依赖外部网络。修改 `templates.json` 后运行 `pnpm check` 可校验配置。
+仓库按职责拆分为两个可发布包：
 
-模块入口导出异步 `loadTemplates()`，读取与 CLI 相同的远程列表；`builtinTemplates` 保留为发布时 `templates.json` 的配置快照，基本示例使用这个快照以便离线运行。另导出 `Template`、`GithubTemplate`、`CliTemplate`、`TemplateConfig` 类型，导入模块不会执行 CLI 或发起网络请求。
+```text
+packages/
+├── cli/   # bingwu-cli：命令行入口、参数解析和终端交互
+└── core/  # bingwu-core：模板读取、配置校验和项目创建 API
+```
+
+`bingwu-cli` 通过 `workspace:^` 依赖 `bingwu-core`，Turborepo 按依赖顺序构建和检查。两个包均由 tsdown 构建 ESM，Vitest 分别验证 Core 的远程配置、模板校验与目录保护，以及 CLI 的参数、交互和构建后的命令。自动测试使用模拟 Fetch、临时目录及替身 pnpm，不依赖外部网络。修改 `templates.json` 后运行 `pnpm check` 可校验配置。
+
+[`bingwu-core`](./packages/core/README.md) 导出异步 `loadTemplates()`，读取与 CLI 相同的远程列表；`builtinTemplates` 保留为发布时 `templates.json` 的配置快照，基本示例直接依赖 Core 并使用这个快照以便离线运行。另提供 `parseConfig()`、`parseTemplate()`、`createProject()`、`installDependencies()` 等 API 及相关类型。导入模块不会执行 CLI 或发起网络请求。[`bingwu-cli`](./packages/cli/README.md) 继续转导出原有的模板读取 API 和类型，兼容已有程序调用。
 
 沿用 pnpm workspace、Turborepo、Oxlint、Oxfmt 和 Changesets。CI 覆盖 Windows / Ubuntu 与 Node.js 22 / 24。
 
@@ -155,12 +163,12 @@ pnpm format
 pnpm check
 git add .
 git commit -m "chore: 发布新版本"
-pnpm --filter bingwu-cli publish --publish-branch main --access public --no-provenance
+pnpm -r --filter './packages/*' publish --publish-branch main --access public --no-provenance
 ```
 
-`--no-provenance` 用于本地首发；GitHub Actions 发布保留来源证明。pnpm 会将 `catalog:` 依赖转换为实际版本范围。
+`--no-provenance` 用于本地首发；GitHub Actions 发布保留来源证明。pnpm 按依赖顺序先发布 Core 再发布 CLI，并将 `catalog:` 和 `workspace:^` 依赖转换为实际版本范围。
 
-首发成功后，在 npm 的包设置中添加 GitHub Actions Trusted Publisher：Organization / User 为 `bingwu-devkit`、Repository 为 `bingwu-workspace`、Workflow filename 为 `release.yml`，Environment 留空，并允许直接发布。GitHub 仓库的 Actions 设置需要允许工作流创建 PR。
+每个包首发成功后，分别在 `bingwu-core` 和 `bingwu-cli` 的 npm 包设置中添加 GitHub Actions Trusted Publisher：Organization / User 为 `bingwu-devkit`、Repository 为 `bingwu-cli`、Workflow filename 为 `release.yml`，Environment 留空，并允许直接发布。仓库重命名后，已配置的 Trusted Publisher 也需要将 Repository 更新为 `bingwu-cli`。GitHub 仓库的 Actions 设置需要允许工作流创建 PR。
 
 后续运行 `pnpm changeset` 记录变更并提交到 `main`；Release 工作流创建版本 PR，合并该 PR 后自动发布 npm 包并创建 GitHub Release。
 

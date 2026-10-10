@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "bingwu-cli": "workspace:*"
+    "bingwu-core": "workspace:*"
   },
   "engines": {
     "node": "^22.18.0 || ^24.0.0"

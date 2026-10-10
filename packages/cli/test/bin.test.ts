@@ -3,11 +3,11 @@ import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
+import { builtinTemplates } from 'bingwu-core'
 import { execa } from 'execa'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import packageJson from '../package.json' with { type: 'json' }
-import { builtinTemplates } from '../src/templates.js'
 const cli = fileURLToPath(new URL('../dist/cli.mjs', import.meta.url))
 let temporary: string
 let file: string
@@ -23,7 +23,7 @@ beforeEach(async () => {
     fetchPreload,
     `import { readFile } from 'node:fs/promises'
 globalThis.fetch = async (url) => {
-  if (url !== 'https://raw.githubusercontent.com/bingwu-devkit/bingwu-workspace/main/templates.json') {
+  if (url !== 'https://raw.githubusercontent.com/bingwu-devkit/bingwu-cli/main/templates.json') {
     throw new Error('unexpected template URL: ' + url)
   }
   if (process.env.FAKE_TEMPLATE_NETWORK_ERROR) throw new TypeError('fetch failed')

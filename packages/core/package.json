@@ -1,18 +1,15 @@
 {
-  "name": "bingwu-cli",
-  "version": "0.3.0",
-  "description": "从 GitHub 统一模板配置快速创建项目",
-  "homepage": "https://github.com/bingwu-devkit/bingwu-workspace#readme",
-  "bugs": "https://github.com/bingwu-devkit/bingwu-workspace/issues",
+  "name": "bingwu-core",
+  "version": "0.0.0",
+  "description": "bingwu 的模板读取、配置校验和项目创建 API",
+  "homepage": "https://github.com/bingwu-devkit/bingwu-cli#readme",
+  "bugs": "https://github.com/bingwu-devkit/bingwu-cli/issues",
   "license": "MIT",
   "author": "BINGWU2003",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bingwu-devkit/bingwu-workspace.git",
+    "url": "git+https://github.com/bingwu-devkit/bingwu-cli.git",
     "directory": "packages/core"
-  },
-  "bin": {
-    "bingwu": "./dist/cli.mjs"
   },
   "files": [
     "dist"
@@ -40,8 +37,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@clack/prompts": "catalog:",
-    "commander": "catalog:",
     "execa": "catalog:",
     "giget": "catalog:",
     "zod": "catalog:"

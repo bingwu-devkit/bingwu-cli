@@ -19,7 +19,7 @@ describe('GitHub 统一模板配置', () => {
       'starter-ts',
     ])
     expect(fetchConfig).toHaveBeenCalledWith(
-      'https://raw.githubusercontent.com/bingwu-devkit/bingwu-workspace/main/templates.json',
+      'https://raw.githubusercontent.com/bingwu-devkit/bingwu-cli/main/templates.json',
       expect.objectContaining({
         signal: expect.any(AbortSignal),
         headers: expect.objectContaining({ 'Cache-Control': 'no-cache' }),

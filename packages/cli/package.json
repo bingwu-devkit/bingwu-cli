@@ -1,0 +1,54 @@
+{
+  "name": "bingwu-cli",
+  "version": "0.3.0",
+  "description": "从 GitHub 统一模板配置快速创建项目",
+  "homepage": "https://github.com/bingwu-devkit/bingwu-cli#readme",
+  "bugs": "https://github.com/bingwu-devkit/bingwu-cli/issues",
+  "license": "MIT",
+  "author": "BINGWU2003",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bingwu-devkit/bingwu-cli.git",
+    "directory": "packages/cli"
+  },
+  "bin": {
+    "bingwu": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "prepack": "pnpm --filter bingwu-cli... build && publint",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@clack/prompts": "catalog:",
+    "bingwu-core": "workspace:^",
+    "commander": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "execa": "catalog:"
+  },
+  "engines": {
+    "node": "^22.18.0 || ^24.0.0"
+  }
+}

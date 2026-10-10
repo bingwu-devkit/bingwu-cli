@@ -2,13 +2,12 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 
+import { builtinTemplates, UserError } from 'bingwu-core'
+import type { createProject, installDependencies, loadTemplates } from 'bingwu-core'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { runCli } from '../src/app.js'
-import type { loadTemplates } from '../src/config.js'
-import type { createProject, installDependencies } from '../src/create.js'
-import { CancelledError, UserError } from '../src/errors.js'
-import { builtinTemplates } from '../src/templates.js'
+import { CancelledError } from '../src/errors.js'
 
 let temporary: string
 const write = vi.fn<(message: string) => void>()

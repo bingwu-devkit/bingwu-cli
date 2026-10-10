@@ -3,7 +3,7 @@ import { parseConfig } from './templates.js'
 import type { Template } from './templates.js'
 
 export const templateConfigUrl =
-  'https://raw.githubusercontent.com/bingwu-devkit/bingwu-workspace/main/templates.json'
+  'https://raw.githubusercontent.com/bingwu-devkit/bingwu-cli/main/templates.json'
 
 const requestTimeout = 15_000
 

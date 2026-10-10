@@ -113,18 +113,31 @@ importers:
 
   examples/basic:
     dependencies:
-      bingwu-cli:
+      bingwu-core:
         specifier: workspace:*
         version: link:../../packages/core
 
-  packages/core:
+  packages/cli:
     dependencies:
       '@clack/prompts':
         specifier: 'catalog:'
         version: 1.8.1
+      bingwu-core:
+        specifier: workspace:^
+        version: link:../core
       commander:
         specifier: 'catalog:'
         version: 15.0.0
+      zod:
+        specifier: 'catalog:'
+        version: 4.6.5
+    devDependencies:
+      execa:
+        specifier: 'catalog:'
+        version: 10.1.0
+
+  packages/core:
+    dependencies:
       execa:
         specifier: 'catalog:'
         version: 10.1.0

@@ -1,3 +1,6 @@
 export { loadTemplates } from './config.js'
-export { builtinTemplates } from './templates.js'
+export { createProject, installDependencies } from './create.js'
+export type { CreateOptions, CreateServices, PnpmRunner } from './create.js'
+export { errorMessage, UserError } from './errors.js'
+export { builtinTemplates, parseConfig, parseTemplate, templateSource } from './templates.js'
 export type { CliTemplate, GithubTemplate, Template, TemplateConfig } from './templates.js'

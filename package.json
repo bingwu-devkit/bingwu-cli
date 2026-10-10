@@ -1,20 +1,20 @@
 {
-  "name": "bingwu-workspace",
+  "name": "bingwu-cli-monorepo",
   "version": "0.0.0",
   "private": true,
-  "description": "bingwu：从 GitHub 统一模板配置快速创建项目的个人 CLI",
-  "homepage": "https://github.com/bingwu-devkit/bingwu-workspace#readme",
-  "bugs": "https://github.com/bingwu-devkit/bingwu-workspace/issues",
+  "description": "从 GitHub 统一模板配置快速创建项目的个人 CLI",
+  "homepage": "https://github.com/bingwu-devkit/bingwu-cli#readme",
+  "bugs": "https://github.com/bingwu-devkit/bingwu-cli/issues",
   "license": "MIT",
   "author": "BINGWU2003",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bingwu-devkit/bingwu-workspace.git"
+    "url": "git+https://github.com/bingwu-devkit/bingwu-cli.git"
   },
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "bingwu": "tsx packages/core/src/cli.ts",
+    "bingwu": "turbo run build --filter=bingwu-core && tsx packages/cli/src/cli.ts",
     "changeset": "changeset",
     "check": "pnpm format:check && pnpm lint && turbo run typecheck test build",
     "dev": "turbo run dev",

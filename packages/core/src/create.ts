@@ -16,7 +16,7 @@ export interface CreateOptions {
 
 export type PnpmRunner = (args: string[], cwd: string) => Promise<void>
 
-interface CreateServices {
+export interface CreateServices {
   download: (
     source: string,
     options: { dir: string; registry: false; force: false; forceClean: false },

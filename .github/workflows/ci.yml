@@ -88,8 +88,8 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Validate package
-        run: pnpm --filter bingwu-cli exec publint
+      - name: Validate packages
+        run: pnpm --filter './packages/*' exec publint
 
       - name: Run basic example
         run: pnpm --filter @bingwu/example-basic start

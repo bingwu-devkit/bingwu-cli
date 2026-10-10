@@ -1,57 +1,47 @@
-# bingwu
+# bingwu Core
 
-读取 GitHub 上统一维护的仓库模板和 npm 脚手架配置，快速创建项目。
+`bingwu-core` 提供模板读取、配置校验和项目创建 API，供 `bingwu-cli` 和其他程序复用。
 
-需要 Node.js 22.18+ 或 24.x，以及 pnpm 11.15.1。
+需要 Node.js 22.18+ 或 24.x。
 
-## 使用
-
-```bash
-pnpm add --global bingwu-cli
-bingwu
-```
-
-也可以通过 `pnpm dlx bingwu-cli` 直接运行。包名为 `bingwu-cli`，命令名为 `bingwu`。
-
-模板由 [bingwu-devkit/bingwu-workspace 的 templates.json](https://github.com/bingwu-devkit/bingwu-workspace/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Shadcn Admin、Shadcn Vue Admin 和 TypeScript Library Starter：
+## 安装与使用
 
 ```bash
-bingwu list
-bingwu create my-electron -t electron-vite
-bingwu create my-admin -t shadcn-admin
-bingwu create my-vue-admin -t shadcn-vue-admin
-bingwu create my-library -t starter-ts
-bingwu create my-admin -t shadcn-admin --install
+pnpm add bingwu-core
 ```
-
-无参数时交互选择模板与项目目录。目标目录必须不存在或为空；取消交互返回退出码 130。
-
-GitHub 模板创建后可以选择是否运行 `pnpm install`。第三方脚手架保留自己的交互流程，`--` 后的参数会透传给脚手架：
-
-```bash
-bingwu create my-app -t electron-vite -- --template vue-ts
-```
-
-## 维护模板
-
-新增、修改或删除模板时，编辑仓库根目录的 `templates.json` 并推送到 `main`。只修改模板列表无需重新发布 CLI，GitHub CDN 缓存可能让修改延迟几分钟生效。配置由 Zod 校验，CLI 模板的 `args` 支持 `{projectDir}` 占位符。
-
-列表和创建命令需要能访问 `raw.githubusercontent.com`，请求超时为 15 秒。网络、HTTP 或配置错误会明确报错；`--help` 和 `--version` 无需联网。
-
-新版不再读取或写入旧的本地收藏配置，`add`、`remove`、`config` 命令及 `--config` 选项已移除。
-
-## 模块入口
-
-导出异步 `loadTemplates()` 获取与 CLI 相同的远程列表；`builtinTemplates` 为发布时的配置快照。另导出 `Template`、`GithubTemplate`、`CliTemplate`、`TemplateConfig` 类型。导入模块不会运行 CLI 或发起网络请求。
 
 ```ts
-import { loadTemplates } from 'bingwu-cli'
+import { createProject, loadTemplates } from 'bingwu-core'
 
 const templates = await loadTemplates()
+const template = templates.find((item) => item.id === 'starter-ts')
+if (!template) throw new Error('未找到 starter-ts 模板')
+
+await createProject({
+  template,
+  directory: 'my-library',
+  extraArgs: [],
+})
 ```
 
-完整用法见[项目文档](https://github.com/bingwu-devkit/bingwu-workspace#readme)。
+`loadTemplates()` 每次读取 [远程 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json)，请求超时为 15 秒。`builtinTemplates` 是发布时的模板快照，可用于离线展示。导入模块不会发起网络请求或执行命令。
+
+`createProject()` 下载 GitHub 模板或运行配置中的第三方 npm 脚手架，返回创建后的绝对目录。目标必须不存在或为空，不会覆盖已有内容；它不会自动安装 GitHub 模板的依赖，按需调用 `installDependencies(directory)`。第三方脚手架和安装依赖需要 pnpm。
+
+## API
+
+- `loadTemplates()`：读取并校验最新远程模板配置。
+- `builtinTemplates`：发布时的只读模板快照。
+- `parseConfig(value)`、`parseTemplate(value)`：校验并规范化模板配置。
+- `templateSource(template)`：获取用于展示或下载的模板来源。
+- `createProject(options, services?)`：创建项目，可注入下载和执行服务。
+- `installDependencies(directory)`：在指定目录运行 `pnpm install`。
+- `UserError`、`errorMessage(error)`：统一的用户错误类型和消息处理。
+
+导出 `Template`、`GithubTemplate`、`CliTemplate`、`TemplateConfig`、`CreateOptions`、`CreateServices` 和 `PnpmRunner` 类型。
+
+命令行用法见 [`bingwu-cli`](../cli/README.md)，完整说明见[项目文档](https://github.com/bingwu-devkit/bingwu-cli#readme)。
 
 ## 许可证
 
-[MIT](https://github.com/bingwu-devkit/bingwu-workspace/blob/main/LICENSE.md)
+[MIT](https://github.com/bingwu-devkit/bingwu-cli/blob/main/LICENSE.md)

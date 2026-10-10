@@ -1,15 +1,24 @@
 import { confirm, isCancel, select, text } from '@clack/prompts'
+import {
+  createProject,
+  errorMessage,
+  installDependencies,
+  loadTemplates,
+  templateSource,
+  UserError,
+} from 'bingwu-core'
+import type { Template } from 'bingwu-core'
 import { Command, CommanderError } from 'commander'
+import { z } from 'zod'
 
 import packageJson from '../package.json' with { type: 'json' }
-import { loadTemplates } from './config.js'
-import { createProject, installDependencies } from './create.js'
-import { CancelledError, errorMessage, UserError } from './errors.js'
-import { templateSource } from './templates.js'
-import type { Template } from './templates.js'
-import { nonEmptyStringSchema, parseWithSchema } from './validation.js'
+import { CancelledError } from './errors.js'
 
-const projectDirectorySchema = nonEmptyStringSchema('项目目录不能为空。')
+const projectDirectoryError = '项目目录不能为空。'
+const projectDirectorySchema = z
+  .string({ error: projectDirectoryError })
+  .trim()
+  .min(1, { error: projectDirectoryError })
 
 interface AppServices {
   interactive: boolean
@@ -102,7 +111,9 @@ export async function runCli(
         '--install 和 --no-install 仅用于 GitHub 模板；第三方脚手架保留自身流程。',
       )
     const target = providedDirectory || (await services.chooseDirectory())
-    parseWithSchema(projectDirectorySchema, target)
+    const validatedDirectory = projectDirectorySchema.safeParse(target)
+    if (!validatedDirectory.success)
+      throw new UserError(validatedDirectory.error.issues[0]!.message)
     services.write(`正在使用 ${template.name} 创建项目…`)
     const result = await services.create({ template, directory: target, extraArgs })
     services.write(`项目文件已创建：${result}`)
