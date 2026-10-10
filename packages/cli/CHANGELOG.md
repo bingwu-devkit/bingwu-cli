@@ -1,5 +1,11 @@
 # bingwu-cli
 
+## 0.5.0
+
+### Minor Changes
+
+- [`9bfc854`](https://github.com/bingwu-devkit/bingwu-cli/commit/9bfc854ae4282a3e84a74f621cdc2d73edea896e) Thanks [@BINGWU2003](https://github.com/BINGWU2003)! - 新增 Fumadocs 模板，通过官方 create-fumadocs-app@latest 脚手架创建文档站点，保留模板和功能配置的交互选择，并更新使用文档。
+
 ## 0.4.0
 
 ### Minor Changes
