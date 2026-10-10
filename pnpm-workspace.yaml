@@ -13,7 +13,7 @@ catalog:
   '@clack/prompts': ^1.8.1
   '@changesets/changelog-github': ^1.0.1
   '@changesets/cli': ^3.0.3
-  '@types/node': ^22.20.1
+  '@types/node': ^26.6.4
   commander: ^15.0.0
   env-paths: ^4.0.0
   execa: ^10.1.0
