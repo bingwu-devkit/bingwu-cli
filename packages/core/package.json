@@ -1,6 +1,6 @@
 {
   "name": "bingwu-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "从 GitHub 统一模板配置快速创建项目",
   "homepage": "https://github.com/bingwu-devkit/bingwu-workspace#readme",
   "bugs": "https://github.com/bingwu-devkit/bingwu-workspace/issues",
