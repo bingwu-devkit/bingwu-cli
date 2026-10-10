@@ -13,12 +13,14 @@ bingwu
 
 也可以通过 `pnpm dlx bingwu-cli` 直接运行。包名为 `bingwu-cli`，命令名为 `bingwu`。
 
-首次使用内置 Electron Vite 官方脚手架和 Shadcn Admin GitHub 模板：
+首次使用内置 Electron Vite 官方脚手架，以及 Shadcn Admin、Shadcn Vue Admin 和 TypeScript Library Starter GitHub 模板：
 
 ```bash
 bingwu list
 bingwu create my-electron -t electron-vite
 bingwu create my-admin -t shadcn-admin
+bingwu create my-vue-admin -t shadcn-vue-admin
+bingwu create my-library -t starter-ts
 bingwu create my-admin -t shadcn-admin --install
 ```
 
@@ -43,6 +45,13 @@ bingwu --config ./my-templates.json list
 ```
 
 CLI 默认参数为 `["{projectDir}"]`；创建时将占位符替换为目标目录名称。收藏保存在系统用户配置目录下的 `bingwu/templates.json`，无效配置会报错并保留原文件。
+
+已有配置升级后会保留原收藏；可以手动添加新模板（均使用 `main` 分支）：
+
+```bash
+bingwu add github Whbbit1999/shadcn-vue-admin --as shadcn-vue-admin --name "Shadcn Vue Admin" --ref main
+bingwu add github bingwu-devkit/starter-ts --as starter-ts --name "TypeScript Library Starter" --ref main
+```
 
 ## 模块入口
 

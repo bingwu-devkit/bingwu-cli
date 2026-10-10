@@ -20,10 +20,12 @@ afterEach(async () => {
 })
 
 describe('收藏配置', () => {
-  it('初始化两个模板，并持久保存新增与删除，包括删除内置模板', async () => {
+  it('初始化四个模板，并持久保存新增与删除，包括删除内置模板', async () => {
     expect((await readConfig(file)).templates.map((template) => template.id)).toEqual([
       'electron-vite',
       'shadcn-admin',
+      'shadcn-vue-admin',
+      'starter-ts',
     ])
     await addTemplate(file, {
       id: 'vite',
@@ -34,10 +36,19 @@ describe('收藏配置', () => {
     })
     await removeTemplate(file, 'electron-vite')
     const config = await readConfig(file)
-    expect(config.templates.map((template) => template.id)).toEqual(['shadcn-admin', 'vite'])
-    expect(config.templates[1]).toMatchObject({ package: 'create-vite@latest' })
+    expect(config.templates.map((template) => template.id)).toEqual([
+      'shadcn-admin',
+      'shadcn-vue-admin',
+      'starter-ts',
+      'vite',
+    ])
+    expect(config.templates.find((template) => template.id === 'vite')).toMatchObject({
+      package: 'create-vite@latest',
+    })
     await removeTemplate(file, 'vite')
     await removeTemplate(file, 'shadcn-admin')
+    await removeTemplate(file, 'shadcn-vue-admin')
+    await removeTemplate(file, 'starter-ts')
     expect((await readConfig(file)).templates).toEqual([])
   })
 
@@ -65,7 +76,7 @@ describe('收藏配置', () => {
   it('可以并发首次读取，不互相覆盖初始化文件', async () => {
     const configs = await Promise.all([readConfig(file), readConfig(file)])
     expect(configs[0]).toEqual(configs[1])
-    expect((await readConfig(file)).templates).toHaveLength(2)
+    expect((await readConfig(file)).templates).toHaveLength(4)
   })
 })
 

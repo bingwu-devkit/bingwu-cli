@@ -40,14 +40,25 @@ bingwu list
 
 首次使用时初始化以下收藏，之后只读取你的配置，删除的模板不会自动恢复。
 
-| ID              | 类型       | 来源                                   |
-| --------------- | ---------- | -------------------------------------- |
-| `electron-vite` | npm 脚手架 | `@quick-start/create-electron@latest`  |
-| `shadcn-admin`  | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支 |
+| ID                 | 类型       | 来源                                         |
+| ------------------ | ---------- | -------------------------------------------- |
+| `electron-vite`    | npm 脚手架 | `@quick-start/create-electron@latest`        |
+| `shadcn-admin`     | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支       |
+| `shadcn-vue-admin` | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支 |
+| `starter-ts`       | GitHub     | `bingwu-devkit/starter-ts` 的 `main` 分支    |
 
 Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
 
 Shadcn Admin 下载仓库源码作为项目起点，保留完整界面、原始包名、许可证和其他文件，不携带 Git 历史。[原始仓库](https://github.com/satnaing/shadcn-admin)
+
+Shadcn Vue Admin 提供 Vue 3 管理面板，[原始仓库](https://github.com/Whbbit1999/shadcn-vue-admin)。TypeScript Library Starter 提供 TypeScript 库项目起点，[原始仓库](https://github.com/bingwu-devkit/starter-ts)。两者同样下载完整仓库源码，不携带 Git 历史。
+
+已有配置升级后会保留原收藏；可以手动添加新模板：
+
+```bash
+bingwu add github Whbbit1999/shadcn-vue-admin --as shadcn-vue-admin --name "Shadcn Vue Admin" --ref main
+bingwu add github bingwu-devkit/starter-ts --as starter-ts --name "TypeScript Library Starter" --ref main
+```
 
 ## 创建项目
 
@@ -56,6 +67,8 @@ bingwu                                      # 交互选择模板和输入目录
 bingwu create my-app                         # 交互选择模板
 bingwu create my-app -t electron-vite
 bingwu create my-admin -t shadcn-admin
+bingwu create my-vue-admin -t shadcn-vue-admin
+bingwu create my-library -t starter-ts
 bingwu create my-app -t electron-vite -- --template vue-ts
 bingwu create my-admin -t shadcn-admin --install
 bingwu create my-admin -t shadcn-admin --no-install
@@ -94,7 +107,7 @@ CLI 默认参数为 `["{projectDir}"]`。`add cli` 的 `--` 后可以保存整�
 bingwu --config ./my-templates.json list
 ```
 
-配置首次初始化时写入两个模板，收藏增删会保存到同一文件。无效 JSON、未知版本、重复 ID 或无效模板会报错并保留原文件。可直接编辑配置来修改收藏参数：
+配置首次初始化时写入四个模板，收藏增删会保存到同一文件。无效 JSON、未知版本、重复 ID 或无效模板会报错并保留原文件。可直接编辑配置来修改收藏参数：
 
 ```json
 {
@@ -112,6 +125,20 @@ bingwu --config ./my-templates.json list
       "name": "Shadcn Admin",
       "type": "github",
       "repo": "satnaing/shadcn-admin",
+      "ref": "main"
+    },
+    {
+      "id": "shadcn-vue-admin",
+      "name": "Shadcn Vue Admin",
+      "type": "github",
+      "repo": "Whbbit1999/shadcn-vue-admin",
+      "ref": "main"
+    },
+    {
+      "id": "starter-ts",
+      "name": "TypeScript Library Starter",
+      "type": "github",
+      "repo": "bingwu-devkit/starter-ts",
       "ref": "main"
     }
   ]

@@ -55,7 +55,7 @@ describe('命令与交互', () => {
       ]),
     ).toBe(0)
     const config = await readConfig(file)
-    expect(config.templates[2]).toMatchObject({
+    expect(config.templates.find((template) => template.id === 'repo')).toMatchObject({
       id: 'repo',
       name: '仓库',
       repo: 'owner/Repo',
@@ -68,7 +68,7 @@ describe('命令与交互', () => {
     ).toBe(0)
     expect(create).toHaveBeenCalledWith({
       directory: 'my app',
-      template: config.templates[3],
+      template: config.templates.find((template) => template.id === 'vite'),
       extraArgs: ['--title', 'two words'],
     })
   })
@@ -212,6 +212,8 @@ describe('命令与交互', () => {
     )
     expect(await run(['remove', 'electron-vite'])).toBe(0)
     expect(await run(['remove', 'shadcn-admin'])).toBe(0)
+    expect(await run(['remove', 'shadcn-vue-admin'])).toBe(0)
+    expect(await run(['remove', 'starter-ts'])).toBe(0)
     expect(await run(['create', 'app', '-t', 'shadcn-admin'])).toBe(1)
     expect(error).toHaveBeenCalledWith(expect.stringContaining('清单为空'))
   })

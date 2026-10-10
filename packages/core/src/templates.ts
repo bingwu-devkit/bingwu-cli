@@ -45,6 +45,20 @@ export const builtinTemplates: readonly Template[] = [
     repo: 'satnaing/shadcn-admin',
     ref: 'main',
   },
+  {
+    id: 'shadcn-vue-admin',
+    name: 'Shadcn Vue Admin',
+    type: 'github',
+    repo: 'Whbbit1999/shadcn-vue-admin',
+    ref: 'main',
+  },
+  {
+    id: 'starter-ts',
+    name: 'TypeScript Library Starter',
+    type: 'github',
+    repo: 'bingwu-devkit/starter-ts',
+    ref: 'main',
+  },
 ]
 
 const objectError = '配置和模板必须是 JSON 对象。'

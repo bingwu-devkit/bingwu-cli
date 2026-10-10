@@ -69,6 +69,8 @@ describe('构建后的命令', () => {
     expect(list.exitCode).toBe(0)
     expect(list.stdout).toContain('electron-vite')
     expect(list.stdout).toContain('satnaing/shadcn-admin#main')
+    expect(list.stdout).toContain('Whbbit1999/shadcn-vue-admin#main')
+    expect(list.stdout).toContain('bingwu-devkit/starter-ts#main')
   })
 
   it('可通过真实子进程收藏、创建带空格的目录、透传参数并移除收藏', async () => {
