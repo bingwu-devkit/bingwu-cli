@@ -172,7 +172,7 @@ describe('来源与 ID 规则兼容性', () => {
   ])('保留仓库格式限制：%s', (input) => {
     expect(() => normalizeGithubRepo(input)).toThrow(
       new UserError(
-        '仓库应为 owner/repo 或 GitHub 仓库地址；分支和子目录请分别使用 --ref 和 --subdir。',
+        '仓库应为 owner/repo 或 GitHub 仓库地址；分支和子目录请分别使用 ref 和 subdir 字段。',
       ),
     )
   })

@@ -1,6 +1,6 @@
 # bingwu
 
-个人项目创建 CLI：收藏 GitHub 仓库模板和第三方 npm 脚手架，通过一个命令快速创建项目。
+个人项目创建 CLI：从 GitHub 上统一维护的模板配置读取仓库模板和第三方 npm 脚手架，通过一个命令快速创建项目。
 
 ## 安装与使用
 
@@ -36,9 +36,9 @@ pnpm --dir packages/core link --global
 bingwu list
 ```
 
-## 内置模板
+## 模板列表
 
-首次使用时初始化以下收藏，之后只读取你的配置，删除的模板不会自动恢复。
+模板统一维护在本仓库 `main` 分支根目录的 [templates.json](./templates.json)。`bingwu list`、`bingwu create` 和无参数交互每次都会读取远程配置，以下为当前模板：
 
 | ID                 | 类型       | 来源                                         |
 | ------------------ | ---------- | -------------------------------------------- |
@@ -52,13 +52,6 @@ Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目�
 Shadcn Admin 下载仓库源码作为项目起点，保留完整界面、原始包名、许可证和其他文件，不携带 Git 历史。[原始仓库](https://github.com/satnaing/shadcn-admin)
 
 Shadcn Vue Admin 提供 Vue 3 管理面板，[原始仓库](https://github.com/Whbbit1999/shadcn-vue-admin)。TypeScript Library Starter 提供 TypeScript 库项目起点，[原始仓库](https://github.com/bingwu-devkit/starter-ts)。两者同样下载完整仓库源码，不携带 Git 历史。
-
-已有配置升级后会保留原收藏；可以手动添加新模板：
-
-```bash
-bingwu add github Whbbit1999/shadcn-vue-admin --as shadcn-vue-admin --name "Shadcn Vue Admin" --ref main
-bingwu add github bingwu-devkit/starter-ts --as starter-ts --name "TypeScript Library Starter" --ref main
-```
 
 ## 创建项目
 
@@ -78,36 +71,19 @@ bingwu create my-admin -t shadcn-admin --no-install
 
 GitHub 模板下载完成后，交互模式会询问是否运行 `pnpm install`，默认不安装。`--install` 明确安装，`--no-install` 跳过询问；非交互模式默认不安装。安装失败时保留已创建的项目文件。
 
-第三方 CLI 继承终端输入输出，在目标父目录运行。`--` 后的参数追加到收藏的默认参数之后；安装选项只用于 GitHub 模板，第三方脚手架保留自身流程。
+第三方 CLI 继承终端输入输出，在目标父目录运行。`--` 后的参数追加到模板配置的默认参数之后；安装选项只用于 GitHub 模板，第三方脚手架保留自身流程。
 
 非交互终端必须提供项目目录和 `--template`；第三方脚手架是否还需要交互由其自身决定。取消 bingwu 的交互返回退出码 130；脚手架失败时传递其退出码。不会自动启动开发服务或初始化 Git。
 
-## 管理收藏
+## 维护模板配置
+
+新增、修改或删除模板时，编辑仓库根目录的 `templates.json` 并推送到 `main`。只修改模板列表无需重新发布 CLI，所有使用新版 CLI 的用户都会读取 GitHub 上的配置。GitHub 的 CDN 缓存可能让刚提交的修改延迟几分钟生效。
 
 ```bash
 bingwu list
-bingwu add github owner/repo --as my-template
-bingwu add github https://github.com/owner/repo.git --name "我的模板"
-bingwu add github owner/monorepo --as demo --ref dev --subdir examples/basic
-bingwu add cli create-vite --as vite
-bingwu add cli create-vite@7 --as vue --name "Vue + TS" -- "{projectDir}" --template vue-ts
-bingwu remove vite
-bingwu config
 ```
 
-GitHub 收藏的默认 ID 是仓库名的小写形式。CLI 收藏的默认 ID 是去除 scope 和版本后的包名；未指定版本时使用 `latest`。`--as` 指定 ID，`--name` 指定显示名称。重复 ID 会报错；可先删除再添加。
-
-CLI 默认参数为 `["{projectDir}"]`。`add cli` 的 `--` 后可以保存整组默认参数，创建时将 `{projectDir}` 替换成目标目录名称，各参数保持独立；不会拼接成 shell 命令。脚手架需要不同参数顺序时可以按其用法保存。
-
-## 配置
-
-`bingwu config` 显示配置文件位置。默认使用系统用户配置目录中的 `bingwu/templates.json`，由 `env-paths` 定位。所有命令都支持独立配置：
-
-```bash
-bingwu --config ./my-templates.json list
-```
-
-配置首次初始化时写入四个模板，收藏增删会保存到同一文件。无效 JSON、未知版本、重复 ID 或无效模板会报错并保留原文件。可直接编辑配置来修改收藏参数：
+配置格式如下，Zod 会校验版本、模板字段及重复 ID：
 
 ```json
 {
@@ -145,7 +121,11 @@ bingwu --config ./my-templates.json list
 }
 ```
 
-GitHub 模板的 `ref`、`subdir` 可选，省略 `ref` 时使用下载工具的默认 ref。删除整个配置文件会在下一次使用时重新初始化；空的 `templates` 数组则保持为空。
+GitHub 模板的 `repo` 支持 `owner/repo` 或 GitHub 仓库地址；`ref`、`subdir` 可选，省略 `ref` 时使用下载工具的默认 ref。CLI 模板通过 `package` 和 `args` 配置脚手架；包名未指定版本时使用 `latest`，创建时将 `args` 中的 `{projectDir}` 替换成目标目录名称，各参数保持独立。
+
+列表和创建命令需要能访问 `raw.githubusercontent.com`。请求超时为 15 秒，网络、HTTP 或配置错误会明确报错。`--help` 和 `--version` 无需联网。
+
+新版不再读取或写入旧的本地收藏配置，`add`、`remove`、`config` 命令及 `--config` 选项已移除。
 
 ## 开发与验证
 
@@ -156,13 +136,13 @@ pnpm check
 pnpm --filter @bingwu/example-basic start
 ```
 
-`packages/core` 是可发布的 CLI 包，tsdown 构建 ESM，Vitest 验证真实配置读写、目录保护、交互选择和构建后的命令。自动测试使用临时目录及替身 pnpm，不依赖外部网络。
+`packages/core` 是可发布的 CLI 包，tsdown 构建 ESM，Vitest 验证远程配置读取与校验、目录保护、交互选择和构建后的命令。自动测试使用模拟 Fetch、临时目录及替身 pnpm，不依赖外部网络。修改 `templates.json` 后运行 `pnpm check` 可校验配置。
 
-模块入口导出 `builtinTemplates` 和 `Template`、`GithubTemplate`、`CliTemplate`、`TemplateConfig` 类型，导入模块不会执行 CLI 或创建用户配置。示例消费该模块入口。
+模块入口导出异步 `loadTemplates()`，读取与 CLI 相同的远程列表；`builtinTemplates` 保留为发布时 `templates.json` 的配置快照，基本示例使用这个快照以便离线运行。另导出 `Template`、`GithubTemplate`、`CliTemplate`、`TemplateConfig` 类型，导入模块不会执行 CLI 或发起网络请求。
 
 沿用 pnpm workspace、Turborepo、Oxlint、Oxfmt 和 Changesets。CI 覆盖 Windows / Ubuntu 与 Node.js 22 / 24。
 
-首版统一使用 pnpm，主要处理公开 GitHub 仓库和 npm 脚手架收藏，不提供 Stars 同步、登录管理、在线模板市场或其他包管理器适配。
+统一使用 pnpm，支持公开 GitHub 仓库和 npm 脚手架模板。
 
 ## 发布
 

@@ -15,7 +15,6 @@ catalog:
   '@changesets/cli': ^3.0.3
   '@types/node': ^22.20.1
   commander: ^15.0.0
-  env-paths: ^4.0.0
   execa: ^10.1.0
   giget: ^3.3.1
   nano-staged: ^1.0.2

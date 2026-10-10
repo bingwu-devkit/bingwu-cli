@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "electron-vite",
+      "name": "Electron Vite（官方交互）",
+      "type": "cli",
+      "package": "@quick-start/create-electron@latest",
+      "args": ["{projectDir}"]
+    },
+    {
+      "id": "shadcn-admin",
+      "name": "Shadcn Admin",
+      "type": "github",
+      "repo": "satnaing/shadcn-admin",
+      "ref": "main"
+    },
+    {
+      "id": "shadcn-vue-admin",
+      "name": "Shadcn Vue Admin",
+      "type": "github",
+      "repo": "Whbbit1999/shadcn-vue-admin",
+      "ref": "main"
+    },
+    {
+      "id": "starter-ts",
+      "name": "TypeScript Library Starter",
+      "type": "github",
+      "repo": "bingwu-devkit/starter-ts",
+      "ref": "main"
+    }
+  ]
+}

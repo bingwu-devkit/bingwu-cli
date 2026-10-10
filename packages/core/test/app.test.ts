@@ -5,18 +5,19 @@ import path from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { runCli } from '../src/app.js'
-import { readConfig } from '../src/config.js'
+import type { loadTemplates } from '../src/config.js'
 import type { createProject, installDependencies } from '../src/create.js'
 import { CancelledError, UserError } from '../src/errors.js'
+import { builtinTemplates } from '../src/templates.js'
 
 let temporary: string
-let file: string
 const write = vi.fn<(message: string) => void>()
 const error = vi.fn<(message: string) => void>()
+const load = vi.fn<typeof loadTemplates>()
 
 beforeEach(async () => {
   temporary = await mkdtemp(path.join(os.tmpdir(), 'bingwu-app-test-'))
-  file = path.join(temporary, 'templates.json')
+  load.mockReset().mockResolvedValue(structuredClone([...builtinTemplates]))
 })
 
 afterEach(async () => {
@@ -24,51 +25,25 @@ afterEach(async () => {
 })
 
 const run = (args: string[], services: Parameters<typeof runCli>[1] = {}) =>
-  runCli(['--config', file, ...args], { interactive: false, write, error, ...services })
+  runCli(args, { interactive: false, loadTemplates: load, write, error, ...services })
 
 describe('命令与交互', () => {
-  it('添加仓库、保存默认 CLI 参数，创建时保留参数边界', async () => {
-    expect(
-      await run([
-        'add',
-        'github',
-        'https://github.com/owner/Repo.git',
-        '--ref',
-        'dev',
-        '--subdir',
-        'examples/app',
-        '--name',
-        '仓库',
-      ]),
-    ).toBe(0)
-    expect(
-      await run([
-        'add',
-        'cli',
-        'create-vite@7',
-        '--as',
-        'vite',
-        '--',
-        '{projectDir}',
-        '--template',
-        'vue-ts',
-      ]),
-    ).toBe(0)
-    const config = await readConfig(file)
-    expect(config.templates.find((template) => template.id === 'repo')).toMatchObject({
-      id: 'repo',
-      name: '仓库',
-      repo: 'owner/Repo',
-      ref: 'dev',
-      subdir: 'examples/app',
-    })
+  it('使用远程 CLI 模板创建项目，保留默认参数和透传参数边界', async () => {
+    const template = {
+      id: 'vite',
+      name: 'Vite',
+      type: 'cli' as const,
+      package: 'create-vite@7',
+      args: ['{projectDir}', '--template', 'vue-ts'],
+    }
+    load.mockResolvedValue([template])
     const create = vi.fn<typeof createProject>(async () => 'created')
     expect(
       await run(['create', 'my app', '-t', 'vite', '--', '--title', 'two words'], { create }),
     ).toBe(0)
     expect(create).toHaveBeenCalledWith({
       directory: 'my app',
-      template: config.templates.find((template) => template.id === 'vite'),
+      template,
       extraArgs: ['--title', 'two words'],
     })
   })
@@ -203,18 +178,44 @@ describe('命令与交互', () => {
     expect(create).not.toHaveBeenCalled()
   })
 
-  it('配置路径、列表、删除和空清单有可用输出', async () => {
-    expect(await run(['config'])).toBe(0)
-    expect(write).toHaveBeenCalledWith(file)
+  it('列表显示远程模板，空配置提示在 GitHub 中维护', async () => {
     expect(await run(['list'])).toBe(0)
     expect(write).toHaveBeenCalledWith(
       expect.stringContaining('@quick-start/create-electron@latest'),
     )
-    expect(await run(['remove', 'electron-vite'])).toBe(0)
-    expect(await run(['remove', 'shadcn-admin'])).toBe(0)
-    expect(await run(['remove', 'shadcn-vue-admin'])).toBe(0)
-    expect(await run(['remove', 'starter-ts'])).toBe(0)
+    expect(write).toHaveBeenCalledWith(expect.stringContaining('Whbbit1999/shadcn-vue-admin#main'))
+    load.mockResolvedValue([])
+    expect(await run(['list'])).toBe(0)
+    expect(write).toHaveBeenCalledWith(expect.stringContaining('GitHub templates.json'))
     expect(await run(['create', 'app', '-t', 'shadcn-admin'])).toBe(1)
     expect(error).toHaveBeenCalledWith(expect.stringContaining('清单为空'))
+  })
+
+  it.each([
+    ['add', 'github', 'owner/repo'],
+    ['remove', 'vite'],
+    ['config'],
+    ['--config', 'old.json', 'list'],
+  ])('拒绝已移除的收藏命令或本地配置选项：%j', async (...args) => {
+    expect(await run(args)).toBe(1)
+    expect(load).not.toHaveBeenCalled()
+  })
+
+  it.each([['--help'], ['--version'], ['create'], ['list', '--', '--flag']])(
+    '帮助、版本及无效参数不读取远程配置：%j',
+    async (...args) => {
+      load.mockRejectedValue(new UserError('网络不可用'))
+      const informational = args[0] === '--help' || args[0] === '--version'
+      expect(await run(args)).toBe(informational ? 0 : 1)
+      expect(load).not.toHaveBeenCalled()
+    },
+  )
+
+  it('远程读取失败时报告错误，并停止项目创建', async () => {
+    load.mockRejectedValue(new UserError('无法获取模板配置：网络不可用'))
+    const create = vi.fn<typeof createProject>()
+    expect(await run(['create', 'app', '-t', 'shadcn-admin'], { create })).toBe(1)
+    expect(error).toHaveBeenCalledWith('错误：无法获取模板配置：网络不可用')
+    expect(create).not.toHaveBeenCalled()
   })
 })

@@ -1,122 +1,110 @@
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
-import os from 'node:os'
-import path from 'node:path'
+import { describe, expect, it, vi } from 'vitest'
 
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import templateConfig from '../../../templates.json' with { type: 'json' }
+import { loadTemplates, templateConfigUrl } from '../src/config.js'
+import { UserError } from '../src/errors.js'
+import { builtinTemplates } from '../src/templates.js'
 
-import { addTemplate, readConfig, removeTemplate } from '../src/config.js'
-import { normalizeGithubRepo, normalizeNpmPackage, parseTemplate } from '../src/templates.js'
+const response = (config: unknown) => new Response(JSON.stringify(config))
 
-let temporary: string
-let file: string
-
-beforeEach(async () => {
-  temporary = await mkdtemp(path.join(os.tmpdir(), 'bingwu-config-test-'))
-  file = path.join(temporary, 'templates.json')
-})
-
-afterEach(async () => {
-  await rm(temporary, { recursive: true, force: true })
-})
-
-describe('收藏配置', () => {
-  it('初始化四个模板，并持久保存新增与删除，包括删除内置模板', async () => {
-    expect((await readConfig(file)).templates.map((template) => template.id)).toEqual([
+describe('GitHub 统一模板配置', () => {
+  it('从指定仓库读取并校验配置，发布快照来自同一配置文件', async () => {
+    const fetchConfig = vi.fn<typeof fetch>(async () => response(templateConfig))
+    const templates = await loadTemplates(fetchConfig)
+    expect(templates).toEqual(builtinTemplates)
+    expect(templates.map((template) => template.id)).toEqual([
       'electron-vite',
       'shadcn-admin',
       'shadcn-vue-admin',
       'starter-ts',
     ])
-    await addTemplate(file, {
-      id: 'vite',
-      name: 'Vite',
-      type: 'cli',
-      package: 'create-vite',
-      args: ['{projectDir}', '--template', 'vue-ts'],
-    })
-    await removeTemplate(file, 'electron-vite')
-    const config = await readConfig(file)
-    expect(config.templates.map((template) => template.id)).toEqual([
-      'shadcn-admin',
-      'shadcn-vue-admin',
-      'starter-ts',
-      'vite',
-    ])
-    expect(config.templates.find((template) => template.id === 'vite')).toMatchObject({
-      package: 'create-vite@latest',
-    })
-    await removeTemplate(file, 'vite')
-    await removeTemplate(file, 'shadcn-admin')
-    await removeTemplate(file, 'shadcn-vue-admin')
-    await removeTemplate(file, 'starter-ts')
-    expect((await readConfig(file)).templates).toEqual([])
+    expect(fetchConfig).toHaveBeenCalledWith(
+      'https://raw.githubusercontent.com/bingwu-devkit/bingwu-workspace/main/templates.json',
+      expect.objectContaining({
+        signal: expect.any(AbortSignal),
+        headers: expect.objectContaining({ 'Cache-Control': 'no-cache' }),
+      }),
+    )
   })
 
-  it('拒绝重复 ID 和删除不存在的条目，并保留配置', async () => {
-    await readConfig(file)
-    const original = await readFile(file, 'utf8')
-    await expect(
-      addTemplate(file, { id: 'shadcn-admin', name: '重复', type: 'github', repo: 'owner/repo' }),
-    ).rejects.toThrow('已存在')
-    await expect(removeTemplate(file, 'missing')).rejects.toThrow('未找到')
-    expect(await readFile(file, 'utf8')).toBe(original)
+  it('每次重新读取远程配置，不缓存旧模板列表', async () => {
+    const updated = {
+      version: 1,
+      templates: [{ id: 'new', name: 'New', type: 'github', repo: 'owner/new' }],
+    }
+    const fetchConfig = vi
+      .fn<typeof fetch>()
+      .mockResolvedValueOnce(response(templateConfig))
+      .mockResolvedValueOnce(response(updated))
+    await loadTemplates(fetchConfig)
+    expect(await loadTemplates(fetchConfig)).toEqual(updated.templates)
+    expect(fetchConfig).toHaveBeenCalledTimes(2)
+  })
+
+  it('保留 Zod 规范化行为，并允许空列表', async () => {
+    const fetchConfig = vi.fn<typeof fetch>(async () =>
+      response({
+        version: 1,
+        templates: [
+          { id: ' cli ', name: ' CLI ', type: 'cli', package: ' create-vite ', args: [] },
+        ],
+      }),
+    )
+    expect(await loadTemplates(fetchConfig)).toEqual([
+      { id: 'cli', name: 'CLI', type: 'cli', package: 'create-vite@latest', args: [] },
+    ])
+    fetchConfig.mockResolvedValue(response({ version: 1, templates: [] }))
+    expect(await loadTemplates(fetchConfig)).toEqual([])
+  })
+
+  it.each([404, 503])('HTTP %s 返回包含配置地址的错误', async (status) => {
+    const fetchConfig = vi.fn<typeof fetch>(async () => new Response('', { status }))
+    await expect(loadTemplates(fetchConfig)).rejects.toThrow(
+      new UserError(`无法获取模板配置 ${templateConfigUrl}：HTTP ${status}。`),
+    )
+  })
+
+  it.each([
+    new TypeError('fetch failed'),
+    new DOMException('The operation was aborted due to timeout', 'TimeoutError'),
+  ])('网络失败或超时时提示重试，不回退到旧快照：%s', async (error) => {
+    const fetchConfig = vi.fn<typeof fetch>().mockRejectedValue(error)
+    await expect(loadTemplates(fetchConfig)).rejects.toThrow(
+      error.name === 'TimeoutError' ? '请求超时（15 秒）' : 'fetch failed',
+    )
+    await expect(loadTemplates(fetchConfig)).rejects.toThrow('请检查网络后重试')
+  })
+
+  it('响应体读取失败也报告网络错误', async () => {
+    const fetchConfig = vi.fn<typeof fetch>(
+      async () =>
+        new Response(
+          new ReadableStream({
+            start(controller) {
+              controller.error(new Error('connection closed'))
+            },
+          }),
+        ),
+    )
+    await expect(loadTemplates(fetchConfig)).rejects.toThrow('connection closed')
+    await expect(loadTemplates(fetchConfig)).rejects.toThrow('请检查网络后重试')
   })
 
   it.each([
     '{broken',
-    '{"version":2,"templates":[]}',
-    '{"version":1,"templates":[{"id":"a","name":"A","type":"cli","package":"create-vite","args":"bad"}]}',
-    '{"version":1,"templates":[{"id":"a","name":"A","type":"github","repo":"a/b"},{"id":"a","name":"A","type":"github","repo":"a/b"}]}',
-  ])('报告配置问题并保留原文件：%s', async (content) => {
-    await writeFile(file, content)
-    await expect(readConfig(file)).rejects.toThrow(file)
-    expect(await readFile(file, 'utf8')).toBe(content)
-  })
-
-  it('可以并发首次读取，不互相覆盖初始化文件', async () => {
-    const configs = await Promise.all([readConfig(file), readConfig(file)])
-    expect(configs[0]).toEqual(configs[1])
-    expect((await readConfig(file)).templates).toHaveLength(4)
-  })
-})
-
-describe('收藏来源', () => {
-  it('解析仓库 URL、scoped npm 包和版本', () => {
-    expect(normalizeGithubRepo('https://github.com/satnaing/shadcn-admin.git/')).toBe(
-      'satnaing/shadcn-admin',
+    JSON.stringify({ version: 2, templates: [] }),
+    JSON.stringify({ version: 1, templates: [{ id: 'bad' }] }),
+    JSON.stringify({
+      version: 1,
+      templates: [
+        { id: 'same', name: 'A', type: 'github', repo: 'owner/a' },
+        { id: 'same', name: 'B', type: 'github', repo: 'owner/b' },
+      ],
+    }),
+  ])('拒绝无效 JSON、版本、模板或重复 ID：%s', async (content) => {
+    const fetchConfig = vi.fn<typeof fetch>(async () => new Response(content))
+    await expect(loadTemplates(fetchConfig)).rejects.toThrow(
+      `远程模板配置无效 ${templateConfigUrl}`,
     )
-    expect(normalizeNpmPackage('@quick-start/create-electron')).toEqual({
-      package: '@quick-start/create-electron@latest',
-      id: 'create-electron',
-    })
-    expect(normalizeNpmPackage('create-vite@^7.0.0')).toEqual({
-      package: 'create-vite@^7.0.0',
-      id: 'create-vite',
-    })
   })
-
-  it.each([
-    'https://gitlab.com/a/b',
-    'https://github.com/a/b/tree/main',
-    'a/..',
-    'https://github.com/a/b?tab=readme',
-  ])('拒绝非仓库来源：%s', (source) => {
-    expect(() => normalizeGithubRepo(source)).toThrow(/仓库/)
-  })
-
-  it.each(['../outside', '/absolute', 'dir\\nested', 'dir/../outside'])(
-    '拒绝无效子目录：%s',
-    (subdir) => {
-      expect(() =>
-        parseTemplate({ id: 'test', name: 'Test', type: 'github', repo: 'a/b', subdir }),
-      ).toThrow('subdir')
-    },
-  )
-
-  it.each(['https://example.com/script.js', 'pkg@file:../script', 'pkg with spaces', '@scope'])(
-    '拒绝非 npm 包来源：%s',
-    (source) => {
-      expect(() => normalizeNpmPackage(source)).toThrow(/npm 包名/)
-    },
-  )
 })

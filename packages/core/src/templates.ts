@@ -2,6 +2,7 @@ import path from 'node:path'
 
 import { z } from 'zod'
 
+import templateConfig from '../../../templates.json' with { type: 'json' }
 import { errorMessage, UserError } from './errors.js'
 import { nonEmptyStringSchema, parseWithSchema } from './validation.js'
 
@@ -30,41 +31,10 @@ export interface TemplateConfig {
   templates: Template[]
 }
 
-export const builtinTemplates: readonly Template[] = [
-  {
-    id: 'electron-vite',
-    name: 'Electron Vite（官方交互）',
-    type: 'cli',
-    package: '@quick-start/create-electron@latest',
-    args: ['{projectDir}'],
-  },
-  {
-    id: 'shadcn-admin',
-    name: 'Shadcn Admin',
-    type: 'github',
-    repo: 'satnaing/shadcn-admin',
-    ref: 'main',
-  },
-  {
-    id: 'shadcn-vue-admin',
-    name: 'Shadcn Vue Admin',
-    type: 'github',
-    repo: 'Whbbit1999/shadcn-vue-admin',
-    ref: 'main',
-  },
-  {
-    id: 'starter-ts',
-    name: 'TypeScript Library Starter',
-    type: 'github',
-    repo: 'bingwu-devkit/starter-ts',
-    ref: 'main',
-  },
-]
-
 const objectError = '配置和模板必须是 JSON 对象。'
 const githubUrlError = '请提供 GitHub 仓库地址，例如 https://github.com/owner/repo。'
 const githubRepoError =
-  '仓库应为 owner/repo 或 GitHub 仓库地址；分支和子目录请分别使用 --ref 和 --subdir。'
+  '仓库应为 owner/repo 或 GitHub 仓库地址；分支和子目录请分别使用 ref 和 subdir 字段。'
 const npmPackageError =
   '请提供 npm 包名，可包含 scope 和版本，例如 @quick-start/create-electron@latest。'
 const argsError = 'CLI 模板的 args 必须是字符串数组。'
@@ -202,6 +172,9 @@ export function parseConfig(value: unknown): TemplateConfig {
   }
   return { version: 1, templates }
 }
+
+/** 发布时的模板快照；最新列表请使用 loadTemplates。 */
+export const builtinTemplates: readonly Template[] = parseConfig(templateConfig).templates
 
 export function templateSource(template: Template): string {
   return template.type === 'cli'
