@@ -23,7 +23,7 @@
     "lint": "oxlint -c oxlint.config.ts .",
     "lint:fix": "oxlint -c oxlint.config.ts . --fix",
     "prepare": "simple-git-hooks",
-    "release": "pnpm build && changeset publish",
+    "release": "pnpm check && changeset publish",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
     "version-packages": "changeset version"
