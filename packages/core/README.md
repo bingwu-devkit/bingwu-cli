@@ -1,17 +1,23 @@
 # bingwu Core
 
-`bingwu-core` 提供模板读取、配置校验和项目创建 API，供 `bingwu-cli` 和其他程序复用。
+`@bingwu/core` 是本仓库的私有工作区包，提供模板读取、配置校验和项目创建 API，供 CLI 和示例复用。CLI 构建时将 Core 的实现与类型声明打包进发布产物。
 
 需要 Node.js 22.18+ 或 24.x。
 
-## 安装与使用
+## 工作区使用
 
-```bash
-pnpm add bingwu-core
+在本仓库的其他工作区包中声明依赖：
+
+```json
+{
+  "dependencies": {
+    "@bingwu/core": "workspace:*"
+  }
+}
 ```
 
 ```ts
-import { createProject, loadTemplates } from 'bingwu-core'
+import { createProject, loadTemplates } from '@bingwu/core'
 
 const templates = await loadTemplates()
 const template = templates.find((item) => item.id === 'starter-ts')
@@ -24,7 +30,7 @@ await createProject({
 })
 ```
 
-`loadTemplates()` 每次读取 [远程 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json)，请求超时为 15 秒。`builtinTemplates` 是发布时的模板快照，可用于离线展示。导入模块不会发起网络请求或执行命令。
+`loadTemplates()` 每次读取 [远程 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json)，请求超时为 15 秒。`builtinTemplates` 是 CLI 发布时的模板快照，可用于离线展示。导入模块不会发起网络请求或执行命令。
 
 `createProject()` 下载 GitHub 模板或运行配置中的第三方 npm 脚手架，返回创建后的绝对目录。目标必须不存在或为空，不会覆盖已有内容；它不会自动安装 GitHub 模板的依赖，按需调用 `installDependencies(directory)`。第三方脚手架和安装依赖需要 pnpm。
 

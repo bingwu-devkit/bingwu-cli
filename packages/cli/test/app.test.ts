@@ -2,8 +2,8 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 
-import { builtinTemplates, UserError } from 'bingwu-core'
-import type { createProject, installDependencies, loadTemplates } from 'bingwu-core'
+import { builtinTemplates, UserError } from '@bingwu/core'
+import type { createProject, installDependencies, loadTemplates } from '@bingwu/core'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { runCli } from '../src/app.js'

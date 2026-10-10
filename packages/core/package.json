@@ -1,7 +1,8 @@
 {
-  "name": "bingwu-core",
+  "name": "@bingwu/core",
   "version": "0.1.0",
-  "description": "bingwu 的模板读取、配置校验和项目创建 API",
+  "private": true,
+  "description": "bingwu CLI 的内部模板读取、配置校验和项目创建逻辑",
   "homepage": "https://github.com/bingwu-devkit/bingwu-cli#readme",
   "bugs": "https://github.com/bingwu-devkit/bingwu-cli/issues",
   "license": "MIT",
@@ -25,14 +26,9 @@
     },
     "./package.json": "./package.json"
   },
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "prepack": "pnpm build && publint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

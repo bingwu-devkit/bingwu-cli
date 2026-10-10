@@ -14,7 +14,7 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
-    "bingwu": "turbo run build --filter=bingwu-core && tsx packages/cli/src/cli.ts",
+    "bingwu": "turbo run build --filter=@bingwu/core && tsx packages/cli/src/cli.ts",
     "changeset": "changeset",
     "check": "pnpm format:check && pnpm lint && turbo run typecheck test build",
     "dev": "turbo run dev",

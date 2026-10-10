@@ -1,9 +1,19 @@
-import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import {
+  chmod,
+  cp,
+  mkdir,
+  mkdtemp,
+  readFile,
+  realpath,
+  rm,
+  symlink,
+  writeFile,
+} from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
-import { builtinTemplates } from 'bingwu-core'
+import { builtinTemplates } from '@bingwu/core'
 import { execa } from 'execa'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
@@ -73,6 +83,50 @@ function run(args: string[], environment: Record<string, string> = {}) {
 }
 
 describe('构建后的命令', () => {
+  it('仅提供公开运行时依赖时，CLI 和模块入口无需安装私有 Core', async () => {
+    expect(packageJson.dependencies).not.toHaveProperty('@bingwu/core')
+    const standalone = path.join(temporary, 'standalone-cli')
+    await mkdir(standalone)
+    await cp(new URL('../dist/', import.meta.url), path.join(standalone, 'dist'), {
+      recursive: true,
+    })
+    await writeFile(path.join(standalone, 'package.json'), JSON.stringify(packageJson))
+    await Promise.all(
+      Object.keys(packageJson.dependencies).map(async (dependency) => {
+        const source = await realpath(
+          fileURLToPath(new URL(`../node_modules/${dependency}`, import.meta.url)),
+        )
+        const destination = path.join(standalone, 'node_modules', dependency)
+        await mkdir(path.dirname(destination), { recursive: true })
+        await symlink(source, destination, process.platform === 'win32' ? 'junction' : 'dir')
+      }),
+    )
+    const list = await execa(
+      process.execPath,
+      ['--import', pathToFileURL(fetchPreload).href, path.join(standalone, 'dist/cli.mjs'), 'list'],
+      { cwd: standalone },
+    )
+    expect(list.stdout).toContain('electron-vite')
+    const imported = await execa(
+      process.execPath,
+      [
+        '--input-type=module',
+        '-e',
+        `globalThis.fetch = async () => { throw new Error('unexpected fetch') }
+const { builtinTemplates, loadTemplates } = await import('./dist/index.mjs')
+console.log(JSON.stringify({ count: builtinTemplates.length, load: typeof loadTemplates }))`,
+      ],
+      { cwd: standalone },
+    )
+    expect(JSON.parse(imported.stdout)).toEqual({
+      count: builtinTemplates.length,
+      load: 'function',
+    })
+    expect(await readFile(path.join(standalone, 'dist/index.d.mts'), 'utf8')).not.toContain(
+      '@bingwu/core',
+    )
+  })
+
   it('入口包含 shebang，help、version 和 list 可以直接执行', async () => {
     expect(await readFile(cli, 'utf8')).toMatch(/^#!\/usr\/bin\/env node\n/)
     const help = await run(['--help'], { FAKE_TEMPLATE_NETWORK_ERROR: '1' })

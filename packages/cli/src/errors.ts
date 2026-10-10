@@ -1,4 +1,4 @@
-import { UserError } from 'bingwu-core'
+import { UserError } from '@bingwu/core'
 
 export class CancelledError extends UserError {
   constructor() {

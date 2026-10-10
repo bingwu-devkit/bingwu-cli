@@ -1,6 +1,6 @@
 # bingwu CLI
 
-基于 `bingwu-core` 读取 GitHub 上统一维护的仓库模板和 npm 脚手架配置，通过命令行快速创建项目。
+读取 GitHub 上统一维护的仓库模板和 npm 脚手架配置，通过命令行快速创建项目。
 
 需要 Node.js 22.18+ 或 24.x，以及 pnpm 11.15.1。
 
@@ -42,7 +42,7 @@ bingwu create my-app -t electron-vite -- --template vue-ts
 
 ## 模块入口
 
-为兼容已有用法，继续从 `bingwu-core` 转导出 `loadTemplates()`、`builtinTemplates` 以及 `Template`、`GithubTemplate`、`CliTemplate`、`TemplateConfig` 类型。导入模块不会运行 CLI 或发起网络请求。新的程序调用建议直接安装并使用 [`bingwu-core`](../core/README.md)。
+导出 `loadTemplates()`、`builtinTemplates` 以及 `Template`、`GithubTemplate`、`CliTemplate`、`TemplateConfig` 类型。`loadTemplates()` 获取最新远程模板，`builtinTemplates` 为发布时的模板快照。导入模块不会运行 CLI 或发起网络请求。
 
 ```ts
 import { loadTemplates } from 'bingwu-cli'

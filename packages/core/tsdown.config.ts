@@ -6,6 +6,5 @@ export default defineConfig({
   entry: ['src/index.ts'],
   format: ['esm'],
   minify: false,
-  publint: true,
   sourcemap: true,
 })

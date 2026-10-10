@@ -41,12 +41,13 @@
   },
   "dependencies": {
     "@clack/prompts": "catalog:",
-    "bingwu-core": "workspace:^",
     "commander": "catalog:",
+    "execa": "catalog:",
+    "giget": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "execa": "catalog:"
+    "@bingwu/core": "workspace:*"
   },
   "engines": {
     "node": "^22.18.0 || ^24.0.0"

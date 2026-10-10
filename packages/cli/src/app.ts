@@ -6,8 +6,8 @@ import {
   loadTemplates,
   templateSource,
   UserError,
-} from 'bingwu-core'
-import type { Template } from 'bingwu-core'
+} from '@bingwu/core'
+import type { Template } from '@bingwu/core'
 import { Command, CommanderError } from 'commander'
 import { z } from 'zod'
 
