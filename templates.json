@@ -9,6 +9,13 @@
       "args": ["{projectDir}"]
     },
     {
+      "id": "fumadocs",
+      "name": "Fumadocs（官方交互）",
+      "type": "cli",
+      "package": "create-fumadocs-app@latest",
+      "args": ["{projectDir}"]
+    },
+    {
       "id": "shadcn-admin",
       "name": "Shadcn Admin",
       "type": "github",

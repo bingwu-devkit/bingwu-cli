@@ -43,11 +43,14 @@ bingwu list
 | ID                 | 类型       | 来源                                         |
 | ------------------ | ---------- | -------------------------------------------- |
 | `electron-vite`    | npm 脚手架 | `@quick-start/create-electron@latest`        |
+| `fumadocs`         | npm 脚手架 | `create-fumadocs-app@latest`                 |
 | `shadcn-admin`     | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支       |
 | `shadcn-vue-admin` | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支 |
 | `starter-ts`       | GitHub     | `bingwu-devkit/starter-ts` 的 `main` 分支    |
 
 Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
+
+Fumadocs 模板运行 `pnpm dlx create-fumadocs-app@latest <项目目录>`，保留官方的模板和功能配置选择，用于创建文档站点。[官方文档](https://www.fumadocs.dev/docs)
 
 Shadcn Admin 下载仓库源码作为项目起点，保留完整界面、原始包名、许可证和其他文件，不携带 Git 历史。[原始仓库](https://github.com/satnaing/shadcn-admin)
 
@@ -59,6 +62,7 @@ Shadcn Vue Admin 提供 Vue 3 管理面板，[原始仓库](https://github.com/W
 bingwu                                      # 交互选择模板和输入目录
 bingwu create my-app                         # 交互选择模板
 bingwu create my-app -t electron-vite
+bingwu create my-docs -t fumadocs
 bingwu create my-admin -t shadcn-admin
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-library -t starter-ts
@@ -94,6 +98,13 @@ bingwu list
       "name": "Electron Vite（官方交互）",
       "type": "cli",
       "package": "@quick-start/create-electron@latest",
+      "args": ["{projectDir}"]
+    },
+    {
+      "id": "fumadocs",
+      "name": "Fumadocs（官方交互）",
+      "type": "cli",
+      "package": "create-fumadocs-app@latest",
       "args": ["{projectDir}"]
     },
     {

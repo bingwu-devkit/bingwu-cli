@@ -13,11 +13,12 @@ bingwu
 
 也可以通过 `pnpm dlx bingwu-cli` 直接运行。包名为 `bingwu-cli`，命令名为 `bingwu`。
 
-模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Shadcn Admin、Shadcn Vue Admin 和 TypeScript Library Starter：
+模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Fumadocs、Shadcn Admin、Shadcn Vue Admin 和 TypeScript Library Starter：
 
 ```bash
 bingwu list
 bingwu create my-electron -t electron-vite
+bingwu create my-docs -t fumadocs
 bingwu create my-admin -t shadcn-admin
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-library -t starter-ts
