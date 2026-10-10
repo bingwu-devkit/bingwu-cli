@@ -1,6 +1,6 @@
 {
   "name": "bingwu-core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "bingwu 的模板读取、配置校验和项目创建 API",
   "homepage": "https://github.com/bingwu-devkit/bingwu-cli#readme",
   "bugs": "https://github.com/bingwu-devkit/bingwu-cli/issues",
