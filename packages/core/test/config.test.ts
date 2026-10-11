@@ -18,6 +18,7 @@ describe('GitHub 统一模板配置', () => {
       'unibest',
       'shadcn-admin',
       'shadcn-vue-admin',
+      'pure-admin-thin',
       'starter-ts',
     ])
     expect(fetchConfig).toHaveBeenCalledWith(

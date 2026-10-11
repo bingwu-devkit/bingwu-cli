@@ -47,6 +47,7 @@ bingwu list
 | `unibest`          | npm 脚手架 | `create-unibest@latest`                      |
 | `shadcn-admin`     | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支       |
 | `shadcn-vue-admin` | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支 |
+| `pure-admin-thin`  | GitHub     | `BINGWU2003/pure-admin-thin` 的 `main` 分支  |
 | `starter-ts`       | GitHub     | `bingwu-devkit/starter-ts` 的 `main` 分支    |
 
 Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
@@ -59,6 +60,8 @@ Shadcn Admin 下载仓库源码作为项目起点，保留完整界面、原始�
 
 Shadcn Vue Admin 提供 Vue 3 管理面板，[原始仓库](https://github.com/Whbbit1999/shadcn-vue-admin)。TypeScript Library Starter 提供 TypeScript 库项目起点，[原始仓库](https://github.com/bingwu-devkit/starter-ts)。两者同样下载完整仓库源码，不携带 Git 历史。
 
+Pure Admin Thin 下载 [BINGWU2003/pure-admin-thin](https://github.com/BINGWU2003/pure-admin-thin) 的完整仓库源码作为项目起点，不携带 Git 历史。
+
 ## 创建项目
 
 ```bash
@@ -69,6 +72,7 @@ bingwu create my-docs -t fumadocs
 bingwu create my-uniapp -t unibest
 bingwu create my-admin -t shadcn-admin
 bingwu create my-vue-admin -t shadcn-vue-admin
+bingwu create my-pure-admin -t pure-admin-thin
 bingwu create my-library -t starter-ts
 bingwu create my-app -t electron-vite -- --template vue-ts
 bingwu create my-admin -t shadcn-admin --install
@@ -130,6 +134,13 @@ bingwu list
       "name": "Shadcn Vue Admin",
       "type": "github",
       "repo": "Whbbit1999/shadcn-vue-admin",
+      "ref": "main"
+    },
+    {
+      "id": "pure-admin-thin",
+      "name": "Pure Admin Thin",
+      "type": "github",
+      "repo": "BINGWU2003/pure-admin-thin",
       "ref": "main"
     },
     {

@@ -37,6 +37,13 @@
       "ref": "main"
     },
     {
+      "id": "pure-admin-thin",
+      "name": "Pure Admin Thin",
+      "type": "github",
+      "repo": "BINGWU2003/pure-admin-thin",
+      "ref": "main"
+    },
+    {
       "id": "starter-ts",
       "name": "TypeScript Library Starter",
       "type": "github",
