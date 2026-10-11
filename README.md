@@ -40,15 +40,16 @@ bingwu list
 
 模板统一维护在本仓库 `main` 分支根目录的 [templates.json](./templates.json)。`bingwu list`、`bingwu create` 和无参数交互每次都会读取远程配置，以下为当前模板：
 
-| ID                 | 类型       | 来源                                         |
-| ------------------ | ---------- | -------------------------------------------- |
-| `electron-vite`    | npm 脚手架 | `@quick-start/create-electron@latest`        |
-| `fumadocs`         | npm 脚手架 | `create-fumadocs-app@latest`                 |
-| `unibest`          | npm 脚手架 | `create-unibest@latest`                      |
-| `shadcn-admin`     | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支       |
-| `shadcn-vue-admin` | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支 |
-| `pure-admin-thin`  | GitHub     | `BINGWU2003/pure-admin-thin` 的 `main` 分支  |
-| `starter-ts`       | GitHub     | `bingwu-devkit/starter-ts` 的 `main` 分支    |
+| ID                    | 类型       | 来源                                            |
+| --------------------- | ---------- | ----------------------------------------------- |
+| `electron-vite`       | npm 脚手架 | `@quick-start/create-electron@latest`           |
+| `fumadocs`            | npm 脚手架 | `create-fumadocs-app@latest`                    |
+| `unibest`             | npm 脚手架 | `create-unibest@latest`                         |
+| `shadcn-admin`        | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支          |
+| `shadcn-vue-admin`    | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支    |
+| `pure-admin-thin`     | GitHub     | `BINGWU2003/pure-admin-thin` 的 `main` 分支     |
+| `art-design-pro-thin` | GitHub     | `BINGWU2003/art-design-pro-thin` 的 `main` 分支 |
+| `starter-ts`          | GitHub     | `bingwu-devkit/starter-ts` 的 `main` 分支       |
 
 Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
 
@@ -62,6 +63,8 @@ Shadcn Vue Admin 提供 Vue 3 管理面板，[原始仓库](https://github.com/W
 
 Pure Admin Thin 下载 [BINGWU2003/pure-admin-thin](https://github.com/BINGWU2003/pure-admin-thin) 的完整仓库源码作为项目起点，不携带 Git 历史。
 
+Art Design Pro Thin 下载 [BINGWU2003/art-design-pro-thin](https://github.com/BINGWU2003/art-design-pro-thin) 的完整仓库源码作为项目起点，不携带 Git 历史。
+
 ## 创建项目
 
 ```bash
@@ -73,6 +76,7 @@ bingwu create my-uniapp -t unibest
 bingwu create my-admin -t shadcn-admin
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-pure-admin -t pure-admin-thin
+bingwu create my-art-admin -t art-design-pro-thin
 bingwu create my-library -t starter-ts
 bingwu create my-app -t electron-vite -- --template vue-ts
 bingwu create my-admin -t shadcn-admin --install
@@ -141,6 +145,13 @@ bingwu list
       "name": "Pure Admin Thin",
       "type": "github",
       "repo": "BINGWU2003/pure-admin-thin",
+      "ref": "main"
+    },
+    {
+      "id": "art-design-pro-thin",
+      "name": "Art Design Pro Thin",
+      "type": "github",
+      "repo": "BINGWU2003/art-design-pro-thin",
       "ref": "main"
     },
     {

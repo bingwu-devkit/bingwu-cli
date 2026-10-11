@@ -19,6 +19,7 @@ describe('GitHub 统一模板配置', () => {
       'shadcn-admin',
       'shadcn-vue-admin',
       'pure-admin-thin',
+      'art-design-pro-thin',
       'starter-ts',
     ])
     expect(fetchConfig).toHaveBeenCalledWith(

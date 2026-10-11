@@ -44,6 +44,13 @@
       "ref": "main"
     },
     {
+      "id": "art-design-pro-thin",
+      "name": "Art Design Pro Thin",
+      "type": "github",
+      "repo": "BINGWU2003/art-design-pro-thin",
+      "ref": "main"
+    },
+    {
       "id": "starter-ts",
       "name": "TypeScript Library Starter",
       "type": "github",
