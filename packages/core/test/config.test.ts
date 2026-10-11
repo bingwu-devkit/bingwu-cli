@@ -15,6 +15,7 @@ describe('GitHub 统一模板配置', () => {
     expect(templates.map((template) => template.id)).toEqual([
       'electron-vite',
       'fumadocs',
+      'unibest',
       'shadcn-admin',
       'shadcn-vue-admin',
       'starter-ts',

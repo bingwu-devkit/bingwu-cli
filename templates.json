@@ -16,6 +16,13 @@
       "args": ["{projectDir}"]
     },
     {
+      "id": "unibest",
+      "name": "unibest（官方交互）",
+      "type": "cli",
+      "package": "create-unibest@latest",
+      "args": ["{projectDir}"]
+    },
+    {
       "id": "shadcn-admin",
       "name": "Shadcn Admin",
       "type": "github",

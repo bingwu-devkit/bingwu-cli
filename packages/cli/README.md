@@ -13,12 +13,13 @@ bingwu
 
 也可以通过 `pnpm dlx bingwu-cli` 直接运行。包名为 `bingwu-cli`，命令名为 `bingwu`。
 
-模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Fumadocs、Shadcn Admin、Shadcn Vue Admin 和 TypeScript Library Starter：
+模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Fumadocs、unibest、Shadcn Admin、Shadcn Vue Admin 和 TypeScript Library Starter：
 
 ```bash
 bingwu list
 bingwu create my-electron -t electron-vite
 bingwu create my-docs -t fumadocs
+bingwu create my-uniapp -t unibest
 bingwu create my-admin -t shadcn-admin
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-library -t starter-ts
@@ -32,6 +33,8 @@ GitHub 模板创建后可以选择是否运行 `pnpm install`。第三方脚手�
 ```bash
 bingwu create my-app -t electron-vite -- --template vue-ts
 ```
+
+unibest 使用官方 `create-unibest@latest` 脚手架，保留平台、UI 库、登录策略和多语言等配置选择。详见[官方快速开始](https://unibest.tech/base/2-start)。
 
 ## 维护模板
 
