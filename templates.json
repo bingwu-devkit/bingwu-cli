@@ -40,21 +40,21 @@
       "id": "pure-admin-thin",
       "name": "Pure Admin Thin",
       "type": "github",
-      "repo": "BINGWU2003/pure-admin-thin",
+      "repo": "bingwu-templates/pure-admin-thin",
       "ref": "main"
     },
     {
       "id": "art-design-pro-thin",
       "name": "Art Design Pro Thin",
       "type": "github",
-      "repo": "BINGWU2003/art-design-pro-thin",
+      "repo": "bingwu-templates/art-design-pro-thin",
       "ref": "main"
     },
     {
       "id": "starter-ts",
       "name": "TypeScript Library Starter",
       "type": "github",
-      "repo": "bingwu-devkit/starter-ts",
+      "repo": "bingwu-templates/starter-ts",
       "ref": "main"
     }
   ]

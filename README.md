@@ -40,16 +40,16 @@ bingwu list
 
 模板统一维护在本仓库 `main` 分支根目录的 [templates.json](./templates.json)。`bingwu list`、`bingwu create` 和无参数交互每次都会读取远程配置，以下为当前模板：
 
-| ID                    | 类型       | 来源                                            |
-| --------------------- | ---------- | ----------------------------------------------- |
-| `electron-vite`       | npm 脚手架 | `@quick-start/create-electron@latest`           |
-| `fumadocs`            | npm 脚手架 | `create-fumadocs-app@latest`                    |
-| `unibest`             | npm 脚手架 | `create-unibest@latest`                         |
-| `shadcn-admin`        | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支          |
-| `shadcn-vue-admin`    | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支    |
-| `pure-admin-thin`     | GitHub     | `BINGWU2003/pure-admin-thin` 的 `main` 分支     |
-| `art-design-pro-thin` | GitHub     | `BINGWU2003/art-design-pro-thin` 的 `main` 分支 |
-| `starter-ts`          | GitHub     | `bingwu-devkit/starter-ts` 的 `main` 分支       |
+| ID                    | 类型       | 来源                                                  |
+| --------------------- | ---------- | ----------------------------------------------------- |
+| `electron-vite`       | npm 脚手架 | `@quick-start/create-electron@latest`                 |
+| `fumadocs`            | npm 脚手架 | `create-fumadocs-app@latest`                          |
+| `unibest`             | npm 脚手架 | `create-unibest@latest`                               |
+| `shadcn-admin`        | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支                |
+| `shadcn-vue-admin`    | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支          |
+| `pure-admin-thin`     | GitHub     | `bingwu-templates/pure-admin-thin` 的 `main` 分支     |
+| `art-design-pro-thin` | GitHub     | `bingwu-templates/art-design-pro-thin` 的 `main` 分支 |
+| `starter-ts`          | GitHub     | `bingwu-templates/starter-ts` 的 `main` 分支          |
 
 Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
 
@@ -59,11 +59,11 @@ unibest 模板运行 `pnpm dlx create-unibest@latest <项目目录>`，保留官
 
 Shadcn Admin 下载仓库源码作为项目起点，保留完整界面、原始包名、许可证和其他文件，不携带 Git 历史。[原始仓库](https://github.com/satnaing/shadcn-admin)
 
-Shadcn Vue Admin 提供 Vue 3 管理面板，[原始仓库](https://github.com/Whbbit1999/shadcn-vue-admin)。TypeScript Library Starter 提供 TypeScript 库项目起点，[原始仓库](https://github.com/bingwu-devkit/starter-ts)。两者同样下载完整仓库源码，不携带 Git 历史。
+Shadcn Vue Admin 提供 Vue 3 管理面板，[原始仓库](https://github.com/Whbbit1999/shadcn-vue-admin)。TypeScript Library Starter 提供 TypeScript 库项目起点，[模板仓库](https://github.com/bingwu-templates/starter-ts)。两者同样下载完整仓库源码，不携带 Git 历史。
 
-Pure Admin Thin 下载 [BINGWU2003/pure-admin-thin](https://github.com/BINGWU2003/pure-admin-thin) 的完整仓库源码作为项目起点，不携带 Git 历史。
+Pure Admin Thin 下载 [bingwu-templates/pure-admin-thin](https://github.com/bingwu-templates/pure-admin-thin) 的完整仓库源码作为项目起点，不携带 Git 历史。
 
-Art Design Pro Thin 下载 [BINGWU2003/art-design-pro-thin](https://github.com/BINGWU2003/art-design-pro-thin) 的完整仓库源码作为项目起点，不携带 Git 历史。
+Art Design Pro Thin 下载 [bingwu-templates/art-design-pro-thin](https://github.com/bingwu-templates/art-design-pro-thin) 的完整仓库源码作为项目起点，不携带 Git 历史。
 
 ## 创建项目
 
@@ -144,21 +144,21 @@ bingwu list
       "id": "pure-admin-thin",
       "name": "Pure Admin Thin",
       "type": "github",
-      "repo": "BINGWU2003/pure-admin-thin",
+      "repo": "bingwu-templates/pure-admin-thin",
       "ref": "main"
     },
     {
       "id": "art-design-pro-thin",
       "name": "Art Design Pro Thin",
       "type": "github",
-      "repo": "BINGWU2003/art-design-pro-thin",
+      "repo": "bingwu-templates/art-design-pro-thin",
       "ref": "main"
     },
     {
       "id": "starter-ts",
       "name": "TypeScript Library Starter",
       "type": "github",
-      "repo": "bingwu-devkit/starter-ts",
+      "repo": "bingwu-templates/starter-ts",
       "ref": "main"
     }
   ]

@@ -142,7 +142,7 @@ console.log(JSON.stringify({ count: builtinTemplates.length, load: typeof loadTe
     expect(list.stdout).toContain('electron-vite')
     expect(list.stdout).toContain('satnaing/shadcn-admin#main')
     expect(list.stdout).toContain('Whbbit1999/shadcn-vue-admin#main')
-    expect(list.stdout).toContain('bingwu-devkit/starter-ts#main')
+    expect(list.stdout).toContain('bingwu-templates/starter-ts#main')
   })
 
   it('从远程配置选择脚手架，创建带空格的目录并透传参数', async () => {
