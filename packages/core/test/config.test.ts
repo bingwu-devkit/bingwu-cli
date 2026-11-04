@@ -16,7 +16,7 @@ describe('GitHub 统一模板配置', () => {
       'electron-vite',
       'fumadocs',
       'unibest',
-      'shadcn-admin',
+      'shadcn-react-template',
       'shadcn-vue-admin',
       'pure-admin-thin',
       'art-design-pro-thin',

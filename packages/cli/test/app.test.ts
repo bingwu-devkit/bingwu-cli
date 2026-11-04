@@ -105,7 +105,7 @@ describe('命令与交互', () => {
       throw new UserError('安装失败', 9)
     })
     expect(
-      await run(['create', target, '-t', 'shadcn-admin'], {
+      await run(['create', target, '-t', 'shadcn-react-template'], {
         interactive: true,
         create,
         chooseInstall,
@@ -126,7 +126,7 @@ describe('命令与交互', () => {
     const install = vi.fn<typeof installDependencies>(async () => {})
     const chooseInstall = vi.fn<() => Promise<boolean>>(async () => true)
     expect(
-      await run(['create', 'app', '-t', 'shadcn-admin', ...(flag ? [flag] : [])], {
+      await run(['create', 'app', '-t', 'shadcn-react-template', ...(flag ? [flag] : [])], {
         interactive,
         create,
         install,
@@ -140,7 +140,7 @@ describe('命令与交互', () => {
   it('交互选择不安装时不安装依赖', async () => {
     const install = vi.fn<typeof installDependencies>(async () => {})
     expect(
-      await run(['create', 'app', '-t', 'shadcn-admin'], {
+      await run(['create', 'app', '-t', 'shadcn-react-template'], {
         interactive: true,
         create: async () => 'created',
         chooseInstall: async () => false,
@@ -153,7 +153,7 @@ describe('命令与交互', () => {
   it.each([
     ['create'],
     ['create', 'app'],
-    ['create', '   ', '-t', 'shadcn-admin'],
+    ['create', '   ', '-t', 'shadcn-react-template'],
     ['create', 'app', '-t', 'missing'],
   ])('参数不完整或 ID 无效时停止：%j', async (...args) => {
     const create = vi.fn<typeof createProject>(async () => 'created')
@@ -186,7 +186,7 @@ describe('命令与交互', () => {
     load.mockResolvedValue([])
     expect(await run(['list'])).toBe(0)
     expect(write).toHaveBeenCalledWith(expect.stringContaining('GitHub templates.json'))
-    expect(await run(['create', 'app', '-t', 'shadcn-admin'])).toBe(1)
+    expect(await run(['create', 'app', '-t', 'shadcn-react-template'])).toBe(1)
     expect(error).toHaveBeenCalledWith(expect.stringContaining('清单为空'))
   })
 
@@ -213,7 +213,7 @@ describe('命令与交互', () => {
   it('远程读取失败时报告错误，并停止项目创建', async () => {
     load.mockRejectedValue(new UserError('无法获取模板配置：网络不可用'))
     const create = vi.fn<typeof createProject>()
-    expect(await run(['create', 'app', '-t', 'shadcn-admin'], { create })).toBe(1)
+    expect(await run(['create', 'app', '-t', 'shadcn-react-template'], { create })).toBe(1)
     expect(error).toHaveBeenCalledWith('错误：无法获取模板配置：网络不可用')
     expect(create).not.toHaveBeenCalled()
   })

@@ -13,19 +13,19 @@ bingwu
 
 也可以通过 `pnpm dlx bingwu-cli` 直接运行。包名为 `bingwu-cli`，命令名为 `bingwu`。
 
-模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Fumadocs、unibest、Shadcn Admin、Shadcn Vue Admin、Pure Admin Thin、Art Design Pro Thin 和 TypeScript Library Starter：
+模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Fumadocs、unibest、Shadcn React Template、Shadcn Vue Admin、Pure Admin Thin、Art Design Pro Thin 和 TypeScript Library Starter：
 
 ```bash
 bingwu list
 bingwu create my-electron -t electron-vite
 bingwu create my-docs -t fumadocs
 bingwu create my-uniapp -t unibest
-bingwu create my-admin -t shadcn-admin
+bingwu create my-admin -t shadcn-react-template
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-pure-admin -t pure-admin-thin
 bingwu create my-art-admin -t art-design-pro-thin
 bingwu create my-library -t starter-ts
-bingwu create my-admin -t shadcn-admin --install
+bingwu create my-admin -t shadcn-react-template --install
 ```
 
 无参数时交互选择模板与项目目录。目标目录必须不存在或为空；取消交互返回退出码 130。

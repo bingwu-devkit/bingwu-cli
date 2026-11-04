@@ -23,10 +23,10 @@
       "args": ["{projectDir}"]
     },
     {
-      "id": "shadcn-admin",
-      "name": "Shadcn Admin",
+      "id": "shadcn-react-template",
+      "name": "Shadcn React Template",
       "type": "github",
-      "repo": "satnaing/shadcn-admin",
+      "repo": "bingwu-templates/shadcn-react-template",
       "ref": "main"
     },
     {

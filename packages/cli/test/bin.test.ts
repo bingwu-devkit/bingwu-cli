@@ -140,7 +140,7 @@ console.log(JSON.stringify({ count: builtinTemplates.length, load: typeof loadTe
     const list = await run(['list'])
     expect(list.exitCode).toBe(0)
     expect(list.stdout).toContain('electron-vite')
-    expect(list.stdout).toContain('satnaing/shadcn-admin#main')
+    expect(list.stdout).toContain('bingwu-templates/shadcn-react-template#main')
     expect(list.stdout).toContain('Whbbit1999/shadcn-vue-admin#main')
     expect(list.stdout).toContain('bingwu-templates/starter-ts#main')
   })

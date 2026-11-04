@@ -40,16 +40,16 @@ bingwu list
 
 模板统一维护在本仓库 `main` 分支根目录的 [templates.json](./templates.json)。`bingwu list`、`bingwu create` 和无参数交互每次都会读取远程配置，以下为当前模板：
 
-| ID                    | 类型       | 来源                                                  |
-| --------------------- | ---------- | ----------------------------------------------------- |
-| `electron-vite`       | npm 脚手架 | `@quick-start/create-electron@latest`                 |
-| `fumadocs`            | npm 脚手架 | `create-fumadocs-app@latest`                          |
-| `unibest`             | npm 脚手架 | `create-unibest@latest`                               |
-| `shadcn-admin`        | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支                |
-| `shadcn-vue-admin`    | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支          |
-| `pure-admin-thin`     | GitHub     | `bingwu-templates/pure-admin-thin` 的 `main` 分支     |
-| `art-design-pro-thin` | GitHub     | `bingwu-templates/art-design-pro-thin` 的 `main` 分支 |
-| `starter-ts`          | GitHub     | `bingwu-templates/starter-ts` 的 `main` 分支          |
+| ID                      | 类型       | 来源                                                    |
+| ----------------------- | ---------- | ------------------------------------------------------- |
+| `electron-vite`         | npm 脚手架 | `@quick-start/create-electron@latest`                   |
+| `fumadocs`              | npm 脚手架 | `create-fumadocs-app@latest`                            |
+| `unibest`               | npm 脚手架 | `create-unibest@latest`                                 |
+| `shadcn-react-template` | GitHub     | `bingwu-templates/shadcn-react-template` 的 `main` 分支 |
+| `shadcn-vue-admin`      | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支            |
+| `pure-admin-thin`       | GitHub     | `bingwu-templates/pure-admin-thin` 的 `main` 分支       |
+| `art-design-pro-thin`   | GitHub     | `bingwu-templates/art-design-pro-thin` 的 `main` 分支   |
+| `starter-ts`            | GitHub     | `bingwu-templates/starter-ts` 的 `main` 分支            |
 
 Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
 
@@ -57,7 +57,7 @@ Fumadocs 模板运行 `pnpm dlx create-fumadocs-app@latest <项目目录>`，保
 
 unibest 模板运行 `pnpm dlx create-unibest@latest <项目目录>`，保留官方的平台、UI 库、登录策略和多语言等配置选择，用于创建 uni-app 项目。[官方快速开始](https://unibest.tech/base/2-start)
 
-Shadcn Admin 下载仓库源码作为项目起点，保留完整界面、原始包名、许可证和其他文件，不携带 Git 历史。[原始仓库](https://github.com/satnaing/shadcn-admin)
+Shadcn React Template 下载 [bingwu-templates/shadcn-react-template](https://github.com/bingwu-templates/shadcn-react-template) 的完整仓库源码作为项目起点，保留原始包名、许可证和其他文件，不携带 Git 历史。
 
 Shadcn Vue Admin 提供 Vue 3 管理面板，[原始仓库](https://github.com/Whbbit1999/shadcn-vue-admin)。TypeScript Library Starter 提供 TypeScript 库项目起点，[模板仓库](https://github.com/bingwu-templates/starter-ts)。两者同样下载完整仓库源码，不携带 Git 历史。
 
@@ -73,14 +73,14 @@ bingwu create my-app                         # 交互选择模板
 bingwu create my-app -t electron-vite
 bingwu create my-docs -t fumadocs
 bingwu create my-uniapp -t unibest
-bingwu create my-admin -t shadcn-admin
+bingwu create my-admin -t shadcn-react-template
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-pure-admin -t pure-admin-thin
 bingwu create my-art-admin -t art-design-pro-thin
 bingwu create my-library -t starter-ts
 bingwu create my-app -t electron-vite -- --template vue-ts
-bingwu create my-admin -t shadcn-admin --install
-bingwu create my-admin -t shadcn-admin --no-install
+bingwu create my-admin -t shadcn-react-template --install
+bingwu create my-admin -t shadcn-react-template --no-install
 ```
 
 项目目录相对于运行命令时的工作目录解析，支持嵌套目录和绝对路径。目标只能是不存在的目录或空目录；文件、符号链接和非空目录会被拒绝，没有强制覆盖选项。
@@ -127,10 +127,10 @@ bingwu list
       "args": ["{projectDir}"]
     },
     {
-      "id": "shadcn-admin",
-      "name": "Shadcn Admin",
+      "id": "shadcn-react-template",
+      "name": "Shadcn React Template",
       "type": "github",
-      "repo": "satnaing/shadcn-admin",
+      "repo": "bingwu-templates/shadcn-react-template",
       "ref": "main"
     },
     {
