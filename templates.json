@@ -51,6 +51,41 @@
       "ref": "main"
     },
     {
+      "id": "tanstack-shadcn-admin-dashboard",
+      "name": "TanStack Shadcn Admin Dashboard",
+      "type": "github",
+      "repo": "arhamkhnz/tanstack-shadcn-admin-dashboard",
+      "ref": "main"
+    },
+    {
+      "id": "next-shadcn-admin-dashboard",
+      "name": "Next Shadcn Admin Dashboard",
+      "type": "github",
+      "repo": "arhamkhnz/next-shadcn-admin-dashboard",
+      "ref": "main"
+    },
+    {
+      "id": "next-shadcn-dashboard-starter",
+      "name": "Next Shadcn Dashboard Starter",
+      "type": "github",
+      "repo": "Kiranism/next-shadcn-dashboard-starter",
+      "ref": "main"
+    },
+    {
+      "id": "tanstack-start-dashboard",
+      "name": "TanStack Start Dashboard",
+      "type": "github",
+      "repo": "Kiranism/tanstack-start-dashboard",
+      "ref": "main"
+    },
+    {
+      "id": "shadcn-admin",
+      "name": "Shadcn Admin",
+      "type": "github",
+      "repo": "satnaing/shadcn-admin",
+      "ref": "main"
+    },
+    {
       "id": "starter-ts",
       "name": "TypeScript Library Starter",
       "type": "github",

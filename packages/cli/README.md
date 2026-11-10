@@ -13,7 +13,7 @@ bingwu
 
 也可以通过 `pnpm dlx bingwu-cli` 直接运行。包名为 `bingwu-cli`，命令名为 `bingwu`。
 
-模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Fumadocs、unibest、Shadcn React Template、Shadcn Vue Admin、Pure Admin Thin、Art Design Pro Thin 和 TypeScript Library Starter：
+模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Fumadocs、unibest、Shadcn React Template、Shadcn Vue Admin、Pure Admin Thin、Art Design Pro Thin、TanStack Shadcn Admin Dashboard、Next Shadcn Admin Dashboard、Next Shadcn Dashboard Starter、TanStack Start Dashboard、Shadcn Admin 和 TypeScript Library Starter：
 
 ```bash
 bingwu list
@@ -24,6 +24,11 @@ bingwu create my-admin -t shadcn-react-template
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-pure-admin -t pure-admin-thin
 bingwu create my-art-admin -t art-design-pro-thin
+bingwu create my-tanstack-admin -t tanstack-shadcn-admin-dashboard
+bingwu create my-next-admin -t next-shadcn-admin-dashboard
+bingwu create my-next-dashboard -t next-shadcn-dashboard-starter
+bingwu create my-tanstack-dashboard -t tanstack-start-dashboard
+bingwu create my-shadcn-admin -t shadcn-admin
 bingwu create my-library -t starter-ts
 bingwu create my-admin -t shadcn-react-template --install
 ```

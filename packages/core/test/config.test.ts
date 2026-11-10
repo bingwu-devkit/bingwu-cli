@@ -20,6 +20,11 @@ describe('GitHub 统一模板配置', () => {
       'shadcn-vue-admin',
       'pure-admin-thin',
       'art-design-pro-thin',
+      'tanstack-shadcn-admin-dashboard',
+      'next-shadcn-admin-dashboard',
+      'next-shadcn-dashboard-starter',
+      'tanstack-start-dashboard',
+      'shadcn-admin',
       'starter-ts',
     ])
     expect(fetchConfig).toHaveBeenCalledWith(

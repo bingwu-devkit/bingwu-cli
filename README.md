@@ -40,16 +40,21 @@ bingwu list
 
 模板统一维护在本仓库 `main` 分支根目录的 [templates.json](./templates.json)。`bingwu list`、`bingwu create` 和无参数交互每次都会读取远程配置，以下为当前模板：
 
-| ID                      | 类型       | 来源                                                    |
-| ----------------------- | ---------- | ------------------------------------------------------- |
-| `electron-vite`         | npm 脚手架 | `@quick-start/create-electron@latest`                   |
-| `fumadocs`              | npm 脚手架 | `create-fumadocs-app@latest`                            |
-| `unibest`               | npm 脚手架 | `create-unibest@latest`                                 |
-| `shadcn-react-template` | GitHub     | `bingwu-templates/shadcn-react-template` 的 `main` 分支 |
-| `shadcn-vue-admin`      | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支            |
-| `pure-admin-thin`       | GitHub     | `bingwu-templates/pure-admin-thin` 的 `main` 分支       |
-| `art-design-pro-thin`   | GitHub     | `bingwu-templates/art-design-pro-thin` 的 `main` 分支   |
-| `starter-ts`            | GitHub     | `bingwu-templates/starter-ts` 的 `main` 分支            |
+| ID                                | 类型       | 来源                                                       |
+| --------------------------------- | ---------- | ---------------------------------------------------------- |
+| `electron-vite`                   | npm 脚手架 | `@quick-start/create-electron@latest`                      |
+| `fumadocs`                        | npm 脚手架 | `create-fumadocs-app@latest`                               |
+| `unibest`                         | npm 脚手架 | `create-unibest@latest`                                    |
+| `shadcn-react-template`           | GitHub     | `bingwu-templates/shadcn-react-template` 的 `main` 分支    |
+| `shadcn-vue-admin`                | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支               |
+| `pure-admin-thin`                 | GitHub     | `bingwu-templates/pure-admin-thin` 的 `main` 分支          |
+| `art-design-pro-thin`             | GitHub     | `bingwu-templates/art-design-pro-thin` 的 `main` 分支      |
+| `tanstack-shadcn-admin-dashboard` | GitHub     | `arhamkhnz/tanstack-shadcn-admin-dashboard` 的 `main` 分支 |
+| `next-shadcn-admin-dashboard`     | GitHub     | `arhamkhnz/next-shadcn-admin-dashboard` 的 `main` 分支     |
+| `next-shadcn-dashboard-starter`   | GitHub     | `Kiranism/next-shadcn-dashboard-starter` 的 `main` 分支    |
+| `tanstack-start-dashboard`        | GitHub     | `Kiranism/tanstack-start-dashboard` 的 `main` 分支         |
+| `shadcn-admin`                    | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支                     |
+| `starter-ts`                      | GitHub     | `bingwu-templates/starter-ts` 的 `main` 分支               |
 
 Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
 
@@ -65,6 +70,10 @@ Pure Admin Thin 下载 [bingwu-templates/pure-admin-thin](https://github.com/bin
 
 Art Design Pro Thin 下载 [bingwu-templates/art-design-pro-thin](https://github.com/bingwu-templates/art-design-pro-thin) 的完整仓库源码作为项目起点，不携带 Git 历史。
 
+TanStack Shadcn Admin Dashboard 和 Next Shadcn Admin Dashboard 分别提供 TanStack Start、Next.js 管理面板，来源为 [arhamkhnz/tanstack-shadcn-admin-dashboard](https://github.com/arhamkhnz/tanstack-shadcn-admin-dashboard) 和 [arhamkhnz/next-shadcn-admin-dashboard](https://github.com/arhamkhnz/next-shadcn-admin-dashboard)。Next Shadcn Dashboard Starter 和 TanStack Start Dashboard 来源为 [Kiranism/next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter) 和 [Kiranism/tanstack-start-dashboard](https://github.com/Kiranism/tanstack-start-dashboard)。这四个模板均下载 `main` 分支的完整仓库源码，不携带 Git 历史。
+
+Shadcn Admin 提供基于 Shadcn 和 Vite 的管理面板，下载 [satnaing/shadcn-admin](https://github.com/satnaing/shadcn-admin) 的 `main` 分支完整仓库源码，不携带 Git 历史。
+
 ## 创建项目
 
 ```bash
@@ -77,6 +86,11 @@ bingwu create my-admin -t shadcn-react-template
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-pure-admin -t pure-admin-thin
 bingwu create my-art-admin -t art-design-pro-thin
+bingwu create my-tanstack-admin -t tanstack-shadcn-admin-dashboard
+bingwu create my-next-admin -t next-shadcn-admin-dashboard
+bingwu create my-next-dashboard -t next-shadcn-dashboard-starter
+bingwu create my-tanstack-dashboard -t tanstack-start-dashboard
+bingwu create my-shadcn-admin -t shadcn-admin
 bingwu create my-library -t starter-ts
 bingwu create my-app -t electron-vite -- --template vue-ts
 bingwu create my-admin -t shadcn-react-template --install
@@ -152,6 +166,41 @@ bingwu list
       "name": "Art Design Pro Thin",
       "type": "github",
       "repo": "bingwu-templates/art-design-pro-thin",
+      "ref": "main"
+    },
+    {
+      "id": "tanstack-shadcn-admin-dashboard",
+      "name": "TanStack Shadcn Admin Dashboard",
+      "type": "github",
+      "repo": "arhamkhnz/tanstack-shadcn-admin-dashboard",
+      "ref": "main"
+    },
+    {
+      "id": "next-shadcn-admin-dashboard",
+      "name": "Next Shadcn Admin Dashboard",
+      "type": "github",
+      "repo": "arhamkhnz/next-shadcn-admin-dashboard",
+      "ref": "main"
+    },
+    {
+      "id": "next-shadcn-dashboard-starter",
+      "name": "Next Shadcn Dashboard Starter",
+      "type": "github",
+      "repo": "Kiranism/next-shadcn-dashboard-starter",
+      "ref": "main"
+    },
+    {
+      "id": "tanstack-start-dashboard",
+      "name": "TanStack Start Dashboard",
+      "type": "github",
+      "repo": "Kiranism/tanstack-start-dashboard",
+      "ref": "main"
+    },
+    {
+      "id": "shadcn-admin",
+      "name": "Shadcn Admin",
+      "type": "github",
+      "repo": "satnaing/shadcn-admin",
       "ref": "main"
     },
     {
