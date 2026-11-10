@@ -42,7 +42,7 @@ bingwu list
 
 | ID                                | 类型       | GitHub 仓库                                                                                               |
 | --------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------- |
-| `electron-vite`                   | npm 脚手架 | [alex8088/quick-start](https://github.com/alex8088/quick-start)                                           |
+| `electron-vite`                   | npm 脚手架 | [alex8088/electron-vite](https://github.com/alex8088/electron-vite)                                       |
 | `electron-forge`                  | npm 脚手架 | [electron/forge](https://github.com/electron/forge)                                                       |
 | `fumadocs`                        | npm 脚手架 | [fuma-nama/fumadocs](https://github.com/fuma-nama/fumadocs)                                               |
 | `unibest`                         | npm 脚手架 | [feige996/unibest](https://github.com/feige996/unibest)                                                   |
@@ -57,7 +57,7 @@ bingwu list
 | `shadcn-admin`                    | GitHub     | [satnaing/shadcn-admin](https://github.com/satnaing/shadcn-admin)                                         |
 | `starter-ts`                      | GitHub     | [bingwu-templates/starter-ts](https://github.com/bingwu-templates/starter-ts)                             |
 
-Electron Vite 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。仓库：[alex8088/quick-start](https://github.com/alex8088/quick-start)。
+Electron Vite 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。仓库：[alex8088/electron-vite](https://github.com/alex8088/electron-vite)。
 
 Electron Forge 模板运行 `pnpm dlx create-electron-app@latest <项目目录>`，保留官方的包管理器、构建工具、语言和 Electron 版本等交互选择。可以通过 `--` 透传 `--template`、`--typescript`、`--package-manager` 等官方参数；传入选项时，脚手架按官方规则处理交互和默认值。依赖安装及 Git 初始化由官方脚手架处理。使用 pnpm 时，按官方要求在生成项目的 `.npmrc` 中设置 `node-linker=hoisted`。仓库：[electron/forge](https://github.com/electron/forge)。
 
@@ -104,6 +104,8 @@ bingwu create my-admin -t shadcn-react-template --no-install
 
 项目目录相对于运行命令时的工作目录解析，支持嵌套目录和绝对路径。目标只能是不存在的目录或空目录；文件、符号链接和非空目录会被拒绝，没有强制覆盖选项。
 
+交互选择模板时，当前高亮项旁会显示完整的 GitHub 仓库地址，方向键切换模板时地址随之更新。所有仓库地址统一维护在 `templates.json` 的 `repo` 字段中，官方交互脚手架也使用同一字段；CLI 不按包名推断地址。未配置 `repo` 的旧脚手架模板保留“ID · 类型”提示。
+
 GitHub 模板下载完成后，交互模式会询问是否运行 `pnpm install`，默认不安装。`--install` 明确安装，`--no-install` 跳过询问；非交互模式默认不安装。安装失败时保留已创建的项目文件。
 
 第三方 CLI 继承终端输入输出，在目标父目录运行。`--` 后的参数追加到模板配置的默认参数之后；安装选项只用于 GitHub 模板，第三方脚手架保留自身流程。
@@ -129,6 +131,7 @@ bingwu list
       "name": "Electron Vite（官方交互）",
       "type": "cli",
       "package": "@quick-start/create-electron@latest",
+      "repo": "https://github.com/alex8088/electron-vite",
       "args": ["{projectDir}"]
     },
     {
@@ -136,6 +139,7 @@ bingwu list
       "name": "Electron Forge（官方交互）",
       "type": "cli",
       "package": "create-electron-app@latest",
+      "repo": "https://github.com/electron/forge",
       "args": ["{projectDir}"]
     },
     {
@@ -143,6 +147,7 @@ bingwu list
       "name": "Fumadocs（官方交互）",
       "type": "cli",
       "package": "create-fumadocs-app@latest",
+      "repo": "https://github.com/fuma-nama/fumadocs",
       "args": ["{projectDir}"]
     },
     {
@@ -150,83 +155,86 @@ bingwu list
       "name": "unibest（官方交互）",
       "type": "cli",
       "package": "create-unibest@latest",
+      "repo": "https://github.com/feige996/unibest",
       "args": ["{projectDir}"]
     },
     {
       "id": "shadcn-react-template",
       "name": "Shadcn React Template",
       "type": "github",
-      "repo": "bingwu-templates/shadcn-react-template",
+      "repo": "https://github.com/bingwu-templates/shadcn-react-template",
       "ref": "main"
     },
     {
       "id": "shadcn-vue-admin",
       "name": "Shadcn Vue Admin",
       "type": "github",
-      "repo": "Whbbit1999/shadcn-vue-admin",
+      "repo": "https://github.com/Whbbit1999/shadcn-vue-admin",
       "ref": "main"
     },
     {
       "id": "pure-admin-thin",
       "name": "Pure Admin Thin",
       "type": "github",
-      "repo": "bingwu-templates/pure-admin-thin",
+      "repo": "https://github.com/bingwu-templates/pure-admin-thin",
       "ref": "main"
     },
     {
       "id": "art-design-pro-thin",
       "name": "Art Design Pro Thin",
       "type": "github",
-      "repo": "bingwu-templates/art-design-pro-thin",
+      "repo": "https://github.com/bingwu-templates/art-design-pro-thin",
       "ref": "main"
     },
     {
       "id": "tanstack-shadcn-admin-dashboard",
       "name": "TanStack Shadcn Admin Dashboard",
       "type": "github",
-      "repo": "arhamkhnz/tanstack-shadcn-admin-dashboard",
+      "repo": "https://github.com/arhamkhnz/tanstack-shadcn-admin-dashboard",
       "ref": "main"
     },
     {
       "id": "next-shadcn-admin-dashboard",
       "name": "Next Shadcn Admin Dashboard",
       "type": "github",
-      "repo": "arhamkhnz/next-shadcn-admin-dashboard",
+      "repo": "https://github.com/arhamkhnz/next-shadcn-admin-dashboard",
       "ref": "main"
     },
     {
       "id": "next-shadcn-dashboard-starter",
       "name": "Next Shadcn Dashboard Starter",
       "type": "github",
-      "repo": "Kiranism/next-shadcn-dashboard-starter",
+      "repo": "https://github.com/Kiranism/next-shadcn-dashboard-starter",
       "ref": "main"
     },
     {
       "id": "tanstack-start-dashboard",
       "name": "TanStack Start Dashboard",
       "type": "github",
-      "repo": "Kiranism/tanstack-start-dashboard",
+      "repo": "https://github.com/Kiranism/tanstack-start-dashboard",
       "ref": "main"
     },
     {
       "id": "shadcn-admin",
       "name": "Shadcn Admin",
       "type": "github",
-      "repo": "satnaing/shadcn-admin",
+      "repo": "https://github.com/satnaing/shadcn-admin",
       "ref": "main"
     },
     {
       "id": "starter-ts",
       "name": "TypeScript Library Starter",
       "type": "github",
-      "repo": "bingwu-templates/starter-ts",
+      "repo": "https://github.com/bingwu-templates/starter-ts",
       "ref": "main"
     }
   ]
 }
 ```
 
-GitHub 模板的 `repo` 支持 `owner/repo` 或 GitHub 仓库地址；`ref`、`subdir` 可选，省略 `ref` 时使用下载工具的默认 ref。CLI 模板通过 `package` 和 `args` 配置脚手架；包名未指定版本时使用 `latest`，创建时将 `args` 中的 `{projectDir}` 替换成目标目录名称，各参数保持独立。
+所有模板的 `repo` 统一填写完整 GitHub 仓库地址，例如 `https://github.com/alex8088/electron-vite`，同时兼容旧的 `owner/repo` 写法。解析时会规范化仓库地址，交互界面显示完整链接，下载逻辑保持兼容。GitHub 模板的 `ref`、`subdir` 可选，省略 `ref` 时使用下载工具的默认 ref。CLI 模板通过 `package` 和 `args` 配置脚手架；包名未指定版本时使用 `latest`，创建时将 `args` 中的 `{projectDir}` 替换成目标目录名称，各参数保持独立。CLI 模板的 `repo` 可选，仅用于交互展示，不影响 npm 包来源、执行参数或 `bingwu list` 输出。配置版本保持 `1`，旧配置无需补充 `repo`。
+
+交互界面显示 GitHub 地址需要使用支持此功能的 CLI 新版本；发布后，仓库地址仍随远程模板配置更新。
 
 列表和创建命令需要能访问 `raw.githubusercontent.com`。请求超时为 15 秒，网络、HTTP 或配置错误会明确报错。`--help` 和 `--version` 无需联网。
 

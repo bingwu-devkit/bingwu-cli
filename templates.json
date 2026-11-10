@@ -6,6 +6,7 @@
       "name": "Electron Vite（官方交互）",
       "type": "cli",
       "package": "@quick-start/create-electron@latest",
+      "repo": "https://github.com/alex8088/electron-vite",
       "args": ["{projectDir}"]
     },
     {
@@ -13,6 +14,7 @@
       "name": "Electron Forge（官方交互）",
       "type": "cli",
       "package": "create-electron-app@latest",
+      "repo": "https://github.com/electron/forge",
       "args": ["{projectDir}"]
     },
     {
@@ -20,6 +22,7 @@
       "name": "Fumadocs（官方交互）",
       "type": "cli",
       "package": "create-fumadocs-app@latest",
+      "repo": "https://github.com/fuma-nama/fumadocs",
       "args": ["{projectDir}"]
     },
     {
@@ -27,76 +30,77 @@
       "name": "unibest（官方交互）",
       "type": "cli",
       "package": "create-unibest@latest",
+      "repo": "https://github.com/feige996/unibest",
       "args": ["{projectDir}"]
     },
     {
       "id": "shadcn-react-template",
       "name": "Shadcn React Template",
       "type": "github",
-      "repo": "bingwu-templates/shadcn-react-template",
+      "repo": "https://github.com/bingwu-templates/shadcn-react-template",
       "ref": "main"
     },
     {
       "id": "shadcn-vue-admin",
       "name": "Shadcn Vue Admin",
       "type": "github",
-      "repo": "Whbbit1999/shadcn-vue-admin",
+      "repo": "https://github.com/Whbbit1999/shadcn-vue-admin",
       "ref": "main"
     },
     {
       "id": "pure-admin-thin",
       "name": "Pure Admin Thin",
       "type": "github",
-      "repo": "bingwu-templates/pure-admin-thin",
+      "repo": "https://github.com/bingwu-templates/pure-admin-thin",
       "ref": "main"
     },
     {
       "id": "art-design-pro-thin",
       "name": "Art Design Pro Thin",
       "type": "github",
-      "repo": "bingwu-templates/art-design-pro-thin",
+      "repo": "https://github.com/bingwu-templates/art-design-pro-thin",
       "ref": "main"
     },
     {
       "id": "tanstack-shadcn-admin-dashboard",
       "name": "TanStack Shadcn Admin Dashboard",
       "type": "github",
-      "repo": "arhamkhnz/tanstack-shadcn-admin-dashboard",
+      "repo": "https://github.com/arhamkhnz/tanstack-shadcn-admin-dashboard",
       "ref": "main"
     },
     {
       "id": "next-shadcn-admin-dashboard",
       "name": "Next Shadcn Admin Dashboard",
       "type": "github",
-      "repo": "arhamkhnz/next-shadcn-admin-dashboard",
+      "repo": "https://github.com/arhamkhnz/next-shadcn-admin-dashboard",
       "ref": "main"
     },
     {
       "id": "next-shadcn-dashboard-starter",
       "name": "Next Shadcn Dashboard Starter",
       "type": "github",
-      "repo": "Kiranism/next-shadcn-dashboard-starter",
+      "repo": "https://github.com/Kiranism/next-shadcn-dashboard-starter",
       "ref": "main"
     },
     {
       "id": "tanstack-start-dashboard",
       "name": "TanStack Start Dashboard",
       "type": "github",
-      "repo": "Kiranism/tanstack-start-dashboard",
+      "repo": "https://github.com/Kiranism/tanstack-start-dashboard",
       "ref": "main"
     },
     {
       "id": "shadcn-admin",
       "name": "Shadcn Admin",
       "type": "github",
-      "repo": "satnaing/shadcn-admin",
+      "repo": "https://github.com/satnaing/shadcn-admin",
       "ref": "main"
     },
     {
       "id": "starter-ts",
       "name": "TypeScript Library Starter",
       "type": "github",
-      "repo": "bingwu-templates/starter-ts",
+      "repo": "https://github.com/bingwu-templates/starter-ts",
       "ref": "main"
     }
   ]

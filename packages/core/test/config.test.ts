@@ -37,6 +37,23 @@ describe('GitHub 统一模板配置', () => {
     )
   })
 
+  it('模板 JSON 统一保存完整 GitHub 地址，解析后兼容原有仓库格式', () => {
+    expect(
+      templateConfig.templates.every((template) => template.repo.startsWith('https://github.com/')),
+    ).toBe(true)
+    expect(builtinTemplates.every((template) => template.repo)).toBe(true)
+    expect(
+      builtinTemplates
+        .filter((template) => template.type === 'cli')
+        .map(({ id, repo }) => ({ id, repo })),
+    ).toEqual([
+      { id: 'electron-vite', repo: 'alex8088/electron-vite' },
+      { id: 'electron-forge', repo: 'electron/forge' },
+      { id: 'fumadocs', repo: 'fuma-nama/fumadocs' },
+      { id: 'unibest', repo: 'feige996/unibest' },
+    ])
+  })
+
   it('每次重新读取远程配置，不缓存旧模板列表', async () => {
     const updated = {
       version: 1,

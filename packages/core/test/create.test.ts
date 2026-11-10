@@ -109,36 +109,39 @@ describe('创建项目', () => {
     expect(run).not.toHaveBeenCalled()
   })
 
-  it('在目标父目录执行脚手架，并按数组替换占位符和透传参数', async () => {
-    const parent = path.join(temporary, 'nested parent')
-    const target = path.join(parent, 'my app')
-    const run = vi.fn<PnpmRunner>(async (_args, cwd) => {
-      await mkdir(path.join(cwd, 'my app'))
-      await writeFile(path.join(target, 'package.json'), '{}')
-    })
-    await createProject(
-      {
-        template: cli,
-        directory: target,
-        extraArgs: ['--title', 'two words', '--template', 'react-ts'],
-      },
-      { run },
-    )
-    expect(run).toHaveBeenCalledWith(
-      [
-        'dlx',
-        'create-vite@latest',
-        'my app',
-        '--template',
-        'vue-ts',
-        '--title',
-        'two words',
-        '--template',
-        'react-ts',
-      ],
-      parent,
-    )
-  })
+  it.each([{}, { repo: 'vitejs/vite' }])(
+    '在目标父目录执行脚手架，保留参数边界且忽略展示仓库：%j',
+    async (metadata) => {
+      const parent = path.join(temporary, 'nested parent')
+      const target = path.join(parent, 'my app')
+      const run = vi.fn<PnpmRunner>(async (_args, cwd) => {
+        await mkdir(path.join(cwd, 'my app'))
+        await writeFile(path.join(target, 'package.json'), '{}')
+      })
+      await createProject(
+        {
+          template: { ...cli, ...metadata },
+          directory: target,
+          extraArgs: ['--title', 'two words', '--template', 'react-ts'],
+        },
+        { run },
+      )
+      expect(run).toHaveBeenCalledWith(
+        [
+          'dlx',
+          'create-vite@latest',
+          'my app',
+          '--template',
+          'vue-ts',
+          '--title',
+          'two words',
+          '--template',
+          'react-ts',
+        ],
+        parent,
+      )
+    },
+  )
 
   it('脚手架失败时保留生成文件并传递失败', async () => {
     const target = path.join(temporary, 'app')

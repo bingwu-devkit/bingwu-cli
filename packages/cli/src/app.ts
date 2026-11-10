@@ -49,7 +49,9 @@ const defaultServices: AppServices = {
         options: templates.map((template) => ({
           value: template.id,
           label: template.name,
-          hint: `${template.id} · ${template.type}`,
+          hint: template.repo
+            ? `https://github.com/${template.repo}`
+            : `${template.id} · ${template.type}`,
         })),
       }),
     ),

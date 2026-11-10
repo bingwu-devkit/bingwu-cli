@@ -22,6 +22,7 @@ export interface CliTemplate extends TemplateBase {
   type: 'cli'
   package: string
   args: string[]
+  repo?: string
 }
 
 export type Template = GithubTemplate | CliTemplate
@@ -124,15 +125,21 @@ const githubTemplateSchema = z
     ...(ref !== undefined ? { ref } : {}),
     ...(subdir !== undefined ? { subdir } : {}),
   }))
-const cliTemplateSchema = z.object({
-  ...baseShape,
-  type: z.literal('cli'),
-  // Preserve the existing priority of args errors over package errors.
-  args: z.array(z.string({ error: argsError }), { error: argsError }),
-  package: stringFieldSchema('package')
-    .pipe(npmPackageSchema)
-    .transform((normalized) => normalized.package),
-})
+const cliTemplateSchema = z
+  .object({
+    ...baseShape,
+    type: z.literal('cli'),
+    // Preserve the existing priority of args errors over package errors.
+    args: z.array(z.string({ error: argsError }), { error: argsError }),
+    package: stringFieldSchema('package')
+      .pipe(npmPackageSchema)
+      .transform((normalized) => normalized.package),
+    repo: stringFieldSchema('repo').pipe(githubRepoSchema).optional(),
+  })
+  .transform(({ repo, ...template }): CliTemplate => ({
+    ...template,
+    ...(repo !== undefined ? { repo } : {}),
+  }))
 // Validate common fields before selecting a template type, matching existing errors.
 const templateSchema = z.looseObject(baseShape, { error: objectError }).pipe(
   z.discriminatedUnion('type', [githubTemplateSchema, cliTemplateSchema], {

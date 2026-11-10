@@ -46,6 +46,8 @@ await createProject({
 
 导出 `Template`、`GithubTemplate`、`CliTemplate`、`TemplateConfig`、`CreateOptions`、`CreateServices` 和 `PnpmRunner` 类型。
 
+`CliTemplate.repo?: string` 是用于交互展示的可选 GitHub 仓库字段。配置中统一填写完整 GitHub 仓库地址，解析时规范化为 `owner/repo`，同时兼容旧的 `owner/repo` 写法；省略时保留旧配置行为。此字段不影响脚手架执行，`templateSource()` 对 CLI 模板仍返回 npm 包名及版本。
+
 命令行用法见 [`bingwu-cli`](../cli/README.md)，完整说明见[项目文档](https://github.com/bingwu-devkit/bingwu-cli#readme)。
 
 ## 许可证

@@ -36,6 +36,8 @@ bingwu create my-admin -t shadcn-react-template --install
 
 无参数时交互选择模板与项目目录。目标目录必须不存在或为空；取消交互返回退出码 130。
 
+模板选择界面仅在当前高亮项旁显示完整 GitHub 仓库地址，方向键切换时同步更新。所有模板（包括官方交互脚手架）的仓库地址均从 `templates.json` 的 `repo` 字段读取，未配置该字段的旧脚手架模板继续显示“ID · 类型”。此界面功能需要使用支持它的 CLI 新版本。
+
 GitHub 模板创建后可以选择是否运行 `pnpm install`。第三方脚手架保留自己的交互流程，`--` 后的参数会透传给脚手架：
 
 ```bash
@@ -50,6 +52,8 @@ unibest 使用官方 `create-unibest@latest` 脚手架，保留平台、UI 库�
 ## 维护模板
 
 新增、修改或删除模板时，编辑仓库根目录的 `templates.json` 并推送到 `main`。只修改模板列表无需重新发布 CLI，GitHub CDN 缓存可能让修改延迟几分钟生效。配置由 Zod 校验，CLI 模板的 `args` 支持 `{projectDir}` 占位符。
+
+所有模板的 `repo` 统一填写完整 GitHub 仓库地址，例如 `https://github.com/alex8088/electron-vite`，同时兼容旧的 `owner/repo` 写法。CLI 模板的 `repo` 为可选展示字段，不影响脚手架执行和 `bingwu list` 输出；配置版本保持 `1`。
 
 列表和创建命令需要能访问 `raw.githubusercontent.com`，请求超时为 15 秒。网络、HTTP 或配置错误会明确报错；`--help` 和 `--version` 无需联网。
 

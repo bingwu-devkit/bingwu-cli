@@ -6,6 +6,7 @@ import {
   normalizeNpmPackage,
   parseConfig,
   parseTemplate,
+  templateSource,
   validateId,
 } from '../src/templates.js'
 
@@ -58,6 +59,41 @@ describe('模板解析兼容性', () => {
       }),
     ).toEqual({ ...cli, package: 'create-vite@latest', args })
     expect(parseTemplate(cli)).toEqual({ ...cli, package: 'create-vite@latest' })
+  })
+
+  it.each([' owner/Repo.git ', ' https://github.com/owner/Repo.git/ '])(
+    'CLI 模板规范化展示仓库且保持脚手架来源：%s',
+    (repo) => {
+      const input = { ...cli, repo }
+      const original = structuredClone(input)
+      const template = parseTemplate(input)
+      expect(template).toEqual({ ...cli, package: 'create-vite@latest', repo: 'owner/Repo' })
+      expect(templateSource(template)).toBe('create-vite@latest')
+      expect(input).toEqual(original)
+    },
+  )
+
+  it.each([{}, { repo: undefined }])('CLI 模板兼容未提供仓库的旧配置：%j', (optional) => {
+    const template = parseTemplate({ ...cli, ...optional })
+    expect(template).toEqual({ ...cli, package: 'create-vite@latest' })
+    expect(Object.hasOwn(template, 'repo')).toBe(false)
+  })
+
+  it.each([
+    { repo: '', message: 'repo 必须是非空字符串。' },
+    { repo: null, message: 'repo 必须是非空字符串。' },
+    { repo: 42, message: 'repo 必须是非空字符串。' },
+    {
+      repo: 'https://gitlab.com/owner/repo',
+      message: '请提供 GitHub 仓库地址，例如 https://github.com/owner/repo。',
+    },
+    {
+      repo: 'https://github.com/owner/repo/tree/main',
+      message:
+        '仓库应为 owner/repo 或 GitHub 仓库地址；分支和子目录请分别使用 ref 和 subdir 字段。',
+    },
+  ])('CLI 模板拒绝无效展示仓库：$repo', ({ repo, message }) => {
+    expect(() => parseTemplate({ ...cli, repo })).toThrow(new UserError(message))
   })
 
   it.each([
