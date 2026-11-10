@@ -40,30 +40,30 @@ bingwu list
 
 模板统一维护在本仓库 `main` 分支根目录的 [templates.json](./templates.json)。`bingwu list`、`bingwu create` 和无参数交互每次都会读取远程配置，以下为当前模板：
 
-| ID                                | 类型       | 来源                                                       |
-| --------------------------------- | ---------- | ---------------------------------------------------------- |
-| `electron-vite`                   | npm 脚手架 | `@quick-start/create-electron@latest`                      |
-| `electron-forge`                  | npm 脚手架 | `create-electron-app@latest`                               |
-| `fumadocs`                        | npm 脚手架 | `create-fumadocs-app@latest`                               |
-| `unibest`                         | npm 脚手架 | `create-unibest@latest`                                    |
-| `shadcn-react-template`           | GitHub     | `bingwu-templates/shadcn-react-template` 的 `main` 分支    |
-| `shadcn-vue-admin`                | GitHub     | `Whbbit1999/shadcn-vue-admin` 的 `main` 分支               |
-| `pure-admin-thin`                 | GitHub     | `bingwu-templates/pure-admin-thin` 的 `main` 分支          |
-| `art-design-pro-thin`             | GitHub     | `bingwu-templates/art-design-pro-thin` 的 `main` 分支      |
-| `tanstack-shadcn-admin-dashboard` | GitHub     | `arhamkhnz/tanstack-shadcn-admin-dashboard` 的 `main` 分支 |
-| `next-shadcn-admin-dashboard`     | GitHub     | `arhamkhnz/next-shadcn-admin-dashboard` 的 `main` 分支     |
-| `next-shadcn-dashboard-starter`   | GitHub     | `Kiranism/next-shadcn-dashboard-starter` 的 `main` 分支    |
-| `tanstack-start-dashboard`        | GitHub     | `Kiranism/tanstack-start-dashboard` 的 `main` 分支         |
-| `shadcn-admin`                    | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支                     |
-| `starter-ts`                      | GitHub     | `bingwu-templates/starter-ts` 的 `main` 分支               |
+| ID                                | 类型       | GitHub 仓库                                                                                               |
+| --------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------- |
+| `electron-vite`                   | npm 脚手架 | [alex8088/quick-start](https://github.com/alex8088/quick-start)                                           |
+| `electron-forge`                  | npm 脚手架 | [electron/forge](https://github.com/electron/forge)                                                       |
+| `fumadocs`                        | npm 脚手架 | [fuma-nama/fumadocs](https://github.com/fuma-nama/fumadocs)                                               |
+| `unibest`                         | npm 脚手架 | [feige996/unibest](https://github.com/feige996/unibest)                                                   |
+| `shadcn-react-template`           | GitHub     | [bingwu-templates/shadcn-react-template](https://github.com/bingwu-templates/shadcn-react-template)       |
+| `shadcn-vue-admin`                | GitHub     | [Whbbit1999/shadcn-vue-admin](https://github.com/Whbbit1999/shadcn-vue-admin)                             |
+| `pure-admin-thin`                 | GitHub     | [bingwu-templates/pure-admin-thin](https://github.com/bingwu-templates/pure-admin-thin)                   |
+| `art-design-pro-thin`             | GitHub     | [bingwu-templates/art-design-pro-thin](https://github.com/bingwu-templates/art-design-pro-thin)           |
+| `tanstack-shadcn-admin-dashboard` | GitHub     | [arhamkhnz/tanstack-shadcn-admin-dashboard](https://github.com/arhamkhnz/tanstack-shadcn-admin-dashboard) |
+| `next-shadcn-admin-dashboard`     | GitHub     | [arhamkhnz/next-shadcn-admin-dashboard](https://github.com/arhamkhnz/next-shadcn-admin-dashboard)         |
+| `next-shadcn-dashboard-starter`   | GitHub     | [Kiranism/next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter)       |
+| `tanstack-start-dashboard`        | GitHub     | [Kiranism/tanstack-start-dashboard](https://github.com/Kiranism/tanstack-start-dashboard)                 |
+| `shadcn-admin`                    | GitHub     | [satnaing/shadcn-admin](https://github.com/satnaing/shadcn-admin)                                         |
+| `starter-ts`                      | GitHub     | [bingwu-templates/starter-ts](https://github.com/bingwu-templates/starter-ts)                             |
 
-Electron Vite 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
+Electron Vite 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。仓库：[alex8088/quick-start](https://github.com/alex8088/quick-start)。
 
-Electron Forge 模板运行 `pnpm dlx create-electron-app@latest <项目目录>`，保留官方的包管理器、构建工具、语言和 Electron 版本等交互选择。可以通过 `--` 透传 `--template`、`--typescript`、`--package-manager` 等官方参数；传入选项时，脚手架按官方规则处理交互和默认值。依赖安装及 Git 初始化由官方脚手架处理。使用 pnpm 时，按官方要求在生成项目的 `.npmrc` 中设置 `node-linker=hoisted`。[官方文档](https://www.electronforge.io/)
+Electron Forge 模板运行 `pnpm dlx create-electron-app@latest <项目目录>`，保留官方的包管理器、构建工具、语言和 Electron 版本等交互选择。可以通过 `--` 透传 `--template`、`--typescript`、`--package-manager` 等官方参数；传入选项时，脚手架按官方规则处理交互和默认值。依赖安装及 Git 初始化由官方脚手架处理。使用 pnpm 时，按官方要求在生成项目的 `.npmrc` 中设置 `node-linker=hoisted`。仓库：[electron/forge](https://github.com/electron/forge)。
 
-Fumadocs 模板运行 `pnpm dlx create-fumadocs-app@latest <项目目录>`，保留官方的模板和功能配置选择，用于创建文档站点。[官方文档](https://www.fumadocs.dev/docs)
+Fumadocs 模板运行 `pnpm dlx create-fumadocs-app@latest <项目目录>`，保留官方的模板和功能配置选择，用于创建文档站点。仓库：[fuma-nama/fumadocs](https://github.com/fuma-nama/fumadocs)。
 
-unibest 模板运行 `pnpm dlx create-unibest@latest <项目目录>`，保留官方的平台、UI 库、登录策略和多语言等配置选择，用于创建 uni-app 项目。[官方快速开始](https://unibest.tech/base/2-start)
+unibest 模板运行 `pnpm dlx create-unibest@latest <项目目录>`，保留官方的平台、UI 库、登录策略和多语言等配置选择，用于创建 uni-app 项目。仓库：[feige996/unibest](https://github.com/feige996/unibest)。
 
 Shadcn React Template 下载 [bingwu-templates/shadcn-react-template](https://github.com/bingwu-templates/shadcn-react-template) 的完整仓库源码作为项目起点，保留原始包名、许可证和其他文件，不携带 Git 历史。
 
