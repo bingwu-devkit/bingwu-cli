@@ -43,6 +43,7 @@ bingwu list
 | ID                                | 类型       | 来源                                                       |
 | --------------------------------- | ---------- | ---------------------------------------------------------- |
 | `electron-vite`                   | npm 脚手架 | `@quick-start/create-electron@latest`                      |
+| `electron-forge`                  | npm 脚手架 | `create-electron-app@latest`                               |
 | `fumadocs`                        | npm 脚手架 | `create-fumadocs-app@latest`                               |
 | `unibest`                         | npm 脚手架 | `create-unibest@latest`                                    |
 | `shadcn-react-template`           | GitHub     | `bingwu-templates/shadcn-react-template` 的 `main` 分支    |
@@ -56,7 +57,9 @@ bingwu list
 | `shadcn-admin`                    | GitHub     | `satnaing/shadcn-admin` 的 `main` 分支                     |
 | `starter-ts`                      | GitHub     | `bingwu-templates/starter-ts` 的 `main` 分支               |
 
-Electron 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
+Electron Vite 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。[官方指南](https://cn.electron-vite.org/guide/)
+
+Electron Forge 模板运行 `pnpm dlx create-electron-app@latest <项目目录>`，保留官方的包管理器、构建工具、语言和 Electron 版本等交互选择。可以通过 `--` 透传 `--template`、`--typescript`、`--package-manager` 等官方参数；传入选项时，脚手架按官方规则处理交互和默认值。依赖安装及 Git 初始化由官方脚手架处理。使用 pnpm 时，按官方要求在生成项目的 `.npmrc` 中设置 `node-linker=hoisted`。[官方文档](https://www.electronforge.io/)
 
 Fumadocs 模板运行 `pnpm dlx create-fumadocs-app@latest <项目目录>`，保留官方的模板和功能配置选择，用于创建文档站点。[官方文档](https://www.fumadocs.dev/docs)
 
@@ -80,6 +83,7 @@ Shadcn Admin 提供基于 Shadcn 和 Vite 的管理面板，下载 [satnaing/sha
 bingwu                                      # 交互选择模板和输入目录
 bingwu create my-app                         # 交互选择模板
 bingwu create my-app -t electron-vite
+bingwu create my-forge-app -t electron-forge
 bingwu create my-docs -t fumadocs
 bingwu create my-uniapp -t unibest
 bingwu create my-admin -t shadcn-react-template
@@ -93,6 +97,7 @@ bingwu create my-tanstack-dashboard -t tanstack-start-dashboard
 bingwu create my-shadcn-admin -t shadcn-admin
 bingwu create my-library -t starter-ts
 bingwu create my-app -t electron-vite -- --template vue-ts
+bingwu create my-forge-app -t electron-forge -- --template=vite --typescript --package-manager=pnpm
 bingwu create my-admin -t shadcn-react-template --install
 bingwu create my-admin -t shadcn-react-template --no-install
 ```
@@ -103,7 +108,7 @@ GitHub 模板下载完成后，交互模式会询问是否运行 `pnpm install`�
 
 第三方 CLI 继承终端输入输出，在目标父目录运行。`--` 后的参数追加到模板配置的默认参数之后；安装选项只用于 GitHub 模板，第三方脚手架保留自身流程。
 
-非交互终端必须提供项目目录和 `--template`；第三方脚手架是否还需要交互由其自身决定。取消 bingwu 的交互返回退出码 130；脚手架失败时传递其退出码。不会自动启动开发服务或初始化 Git。
+非交互终端必须提供项目目录和 `--template`；第三方脚手架是否还需要交互由其自身决定。取消 bingwu 的交互返回退出码 130；脚手架失败时传递其退出码。bingwu 本身不会自动启动开发服务或初始化 Git，第三方脚手架保留自身流程。
 
 ## 维护模板配置
 
@@ -124,6 +129,13 @@ bingwu list
       "name": "Electron Vite（官方交互）",
       "type": "cli",
       "package": "@quick-start/create-electron@latest",
+      "args": ["{projectDir}"]
+    },
+    {
+      "id": "electron-forge",
+      "name": "Electron Forge（官方交互）",
+      "type": "cli",
+      "package": "create-electron-app@latest",
       "args": ["{projectDir}"]
     },
     {

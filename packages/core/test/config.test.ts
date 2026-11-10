@@ -14,6 +14,7 @@ describe('GitHub 统一模板配置', () => {
     expect(templates).toEqual(builtinTemplates)
     expect(templates.map((template) => template.id)).toEqual([
       'electron-vite',
+      'electron-forge',
       'fumadocs',
       'unibest',
       'shadcn-react-template',

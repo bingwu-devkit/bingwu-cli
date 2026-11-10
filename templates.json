@@ -9,6 +9,13 @@
       "args": ["{projectDir}"]
     },
     {
+      "id": "electron-forge",
+      "name": "Electron Forge（官方交互）",
+      "type": "cli",
+      "package": "create-electron-app@latest",
+      "args": ["{projectDir}"]
+    },
+    {
       "id": "fumadocs",
       "name": "Fumadocs（官方交互）",
       "type": "cli",

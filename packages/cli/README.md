@@ -13,11 +13,12 @@ bingwu
 
 也可以通过 `pnpm dlx bingwu-cli` 直接运行。包名为 `bingwu-cli`，命令名为 `bingwu`。
 
-模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Fumadocs、unibest、Shadcn React Template、Shadcn Vue Admin、Pure Admin Thin、Art Design Pro Thin、TanStack Shadcn Admin Dashboard、Next Shadcn Admin Dashboard、Next Shadcn Dashboard Starter、TanStack Start Dashboard、Shadcn Admin 和 TypeScript Library Starter：
+模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Electron Forge、Fumadocs、unibest、Shadcn React Template、Shadcn Vue Admin、Pure Admin Thin、Art Design Pro Thin、TanStack Shadcn Admin Dashboard、Next Shadcn Admin Dashboard、Next Shadcn Dashboard Starter、TanStack Start Dashboard、Shadcn Admin 和 TypeScript Library Starter：
 
 ```bash
 bingwu list
 bingwu create my-electron -t electron-vite
+bingwu create my-forge-app -t electron-forge
 bingwu create my-docs -t fumadocs
 bingwu create my-uniapp -t unibest
 bingwu create my-admin -t shadcn-react-template
@@ -39,7 +40,10 @@ GitHub 模板创建后可以选择是否运行 `pnpm install`。第三方脚手�
 
 ```bash
 bingwu create my-app -t electron-vite -- --template vue-ts
+bingwu create my-forge-app -t electron-forge -- --template=vite --typescript --package-manager=pnpm
 ```
+
+Electron Forge 使用官方 `create-electron-app@latest` 脚手架，保留包管理器、构建工具、语言和 Electron 版本等交互选择，依赖安装及 Git 初始化由官方脚手架处理。传入选项时按官方规则处理交互和默认值；使用 pnpm 时，在生成项目的 `.npmrc` 中设置 `node-linker=hoisted`。详见[官方文档](https://www.electronforge.io/)。
 
 unibest 使用官方 `create-unibest@latest` 脚手架，保留平台、UI 库、登录策略和多语言等配置选择。详见[官方快速开始](https://unibest.tech/base/2-start)。
 
