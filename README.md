@@ -4,14 +4,11 @@
 
 ## 安装与使用
 
-需要 Node.js 22.18+ 或 24.x，以及 pnpm 11.15.1。
+需要 Node.js 22.18+ 或 24.x。
 
 ```bash
-pnpm add --global bingwu-cli
-bingwu
+npx --yes bingwu-cli@latest
 ```
-
-也可以不全局安装，直接运行 `pnpm dlx bingwu-cli`。npm 包名为 `bingwu-cli`，命令名为 `bingwu`。
 
 ## 本地开发
 
