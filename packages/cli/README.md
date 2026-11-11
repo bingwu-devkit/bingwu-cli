@@ -2,16 +2,31 @@
 
 读取 GitHub 上统一维护的仓库模板和 npm 脚手架配置，通过命令行快速创建项目。
 
-需要 Node.js 22.18+ 或 24.x，以及 pnpm 11.15.1。
+## 安装与使用
 
-## 使用
+需要 Node.js 22.18+ 或 24.x，以及 pnpm。
+
+直接运行：
 
 ```bash
-pnpm add --global bingwu-cli
+npx --yes bingwu-cli@latest
+```
+
+也可以全局安装：
+
+```bash
+pnpm add -g bingwu-cli@latest
+```
+
+使用全局安装的 `bingwu` 命令：
+
+```bash
 bingwu
 ```
 
-也可以通过 `pnpm dlx bingwu-cli` 直接运行。包名为 `bingwu-cli`，命令名为 `bingwu`。
+npm 包名为 `bingwu-cli`，命令名为 `bingwu`。
+
+## 创建项目
 
 模板由 [bingwu-devkit/bingwu-cli 的 templates.json](https://github.com/bingwu-devkit/bingwu-cli/blob/main/templates.json) 统一维护。列表和创建命令每次读取 `main` 分支的配置，当前包含 Electron Vite、Electron Forge、Fumadocs、unibest、Shadcn React Template、Shadcn Vue Admin、Pure Admin Thin、Art Design Pro Thin、TanStack Shadcn Admin Dashboard、Next Shadcn Admin Dashboard、Next Shadcn Dashboard Starter、TanStack Start Dashboard、Shadcn Admin 和 TypeScript Library Starter：
 
