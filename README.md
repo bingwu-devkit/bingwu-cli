@@ -178,7 +178,7 @@ bingwu list
     },
     {
       "id": "skyroc",
-      "name": "Skyroc",
+      "name": "Skyroc（官方交互）",
       "type": "cli",
       "package": "create-skyroc@latest",
       "repo": "https://github.com/Ohh-889/skyroc",
