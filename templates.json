@@ -97,6 +97,13 @@
       "ref": "main"
     },
     {
+      "id": "skyroc",
+      "name": "Skyroc",
+      "type": "github",
+      "repo": "https://github.com/Ohh-889/skyroc",
+      "ref": "master"
+    },
+    {
       "id": "starter-ts",
       "name": "TypeScript Library Starter",
       "type": "github",

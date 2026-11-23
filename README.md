@@ -68,6 +68,7 @@ bingwu list
 | `next-shadcn-dashboard-starter`   | GitHub     | [Kiranism/next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter)       |
 | `tanstack-start-dashboard`        | GitHub     | [Kiranism/tanstack-start-dashboard](https://github.com/Kiranism/tanstack-start-dashboard)                 |
 | `shadcn-admin`                    | GitHub     | [satnaing/shadcn-admin](https://github.com/satnaing/shadcn-admin)                                         |
+| `skyroc`                          | GitHub     | [Ohh-889/skyroc](https://github.com/Ohh-889/skyroc)                                                       |
 | `starter-ts`                      | GitHub     | [bingwu-templates/starter-ts](https://github.com/bingwu-templates/starter-ts)                             |
 
 Electron Vite 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。仓库：[alex8088/electron-vite](https://github.com/alex8088/electron-vite)。
@@ -90,6 +91,8 @@ TanStack Shadcn Admin Dashboard 和 Next Shadcn Admin Dashboard 分别提供 Tan
 
 Shadcn Admin 提供基于 Shadcn 和 Vite 的管理面板，下载 [satnaing/shadcn-admin](https://github.com/satnaing/shadcn-admin) 的 `main` 分支完整仓库源码，不携带 Git 历史。
 
+Skyroc 模板下载 `master` 分支的完整 monorepo，包含 React Admin 和 Expo 应用。[Ohh-889/skyroc](https://github.com/Ohh-889/skyroc)
+
 ## 创建项目
 
 ```bash
@@ -108,6 +111,7 @@ bingwu create my-next-admin -t next-shadcn-admin-dashboard
 bingwu create my-next-dashboard -t next-shadcn-dashboard-starter
 bingwu create my-tanstack-dashboard -t tanstack-start-dashboard
 bingwu create my-shadcn-admin -t shadcn-admin
+bingwu create my-skyroc -t skyroc
 bingwu create my-library -t starter-ts
 bingwu create my-app -t electron-vite -- --template vue-ts
 bingwu create my-forge-app -t electron-forge -- --template=vite --typescript --package-manager=pnpm
@@ -233,6 +237,13 @@ bingwu list
       "type": "github",
       "repo": "https://github.com/satnaing/shadcn-admin",
       "ref": "main"
+    },
+    {
+      "id": "skyroc",
+      "name": "Skyroc",
+      "type": "github",
+      "repo": "https://github.com/Ohh-889/skyroc",
+      "ref": "master"
     },
     {
       "id": "starter-ts",

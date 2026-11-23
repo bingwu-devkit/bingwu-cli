@@ -26,6 +26,7 @@ describe('GitHub 统一模板配置', () => {
       'next-shadcn-dashboard-starter',
       'tanstack-start-dashboard',
       'shadcn-admin',
+      'skyroc',
       'starter-ts',
     ])
     expect(fetchConfig).toHaveBeenCalledWith(
