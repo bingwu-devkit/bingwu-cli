@@ -59,6 +59,7 @@ bingwu list
 | `electron-forge`                  | npm 脚手架 | [electron/forge](https://github.com/electron/forge)                                                       |
 | `fumadocs`                        | npm 脚手架 | [fuma-nama/fumadocs](https://github.com/fuma-nama/fumadocs)                                               |
 | `unibest`                         | npm 脚手架 | [feige996/unibest](https://github.com/feige996/unibest)                                                   |
+| `skyroc`                          | npm 脚手架 | [Ohh-889/skyroc](https://github.com/Ohh-889/skyroc)                                                       |
 | `shadcn-react-template`           | GitHub     | [bingwu-templates/shadcn-react-template](https://github.com/bingwu-templates/shadcn-react-template)       |
 | `shadcn-vue-admin`                | GitHub     | [Whbbit1999/shadcn-vue-admin](https://github.com/Whbbit1999/shadcn-vue-admin)                             |
 | `pure-admin-thin`                 | GitHub     | [bingwu-templates/pure-admin-thin](https://github.com/bingwu-templates/pure-admin-thin)                   |
@@ -68,7 +69,6 @@ bingwu list
 | `next-shadcn-dashboard-starter`   | GitHub     | [Kiranism/next-shadcn-dashboard-starter](https://github.com/Kiranism/next-shadcn-dashboard-starter)       |
 | `tanstack-start-dashboard`        | GitHub     | [Kiranism/tanstack-start-dashboard](https://github.com/Kiranism/tanstack-start-dashboard)                 |
 | `shadcn-admin`                    | GitHub     | [satnaing/shadcn-admin](https://github.com/satnaing/shadcn-admin)                                         |
-| `skyroc`                          | GitHub     | [Ohh-889/skyroc](https://github.com/Ohh-889/skyroc)                                                       |
 | `starter-ts`                      | GitHub     | [bingwu-templates/starter-ts](https://github.com/bingwu-templates/starter-ts)                             |
 
 Electron Vite 模板运行 `pnpm dlx @quick-start/create-electron@latest <项目目录>`，保留官方的框架、TypeScript、更新插件和下载镜像选择。仓库：[alex8088/electron-vite](https://github.com/alex8088/electron-vite)。
@@ -78,6 +78,8 @@ Electron Forge 模板运行 `pnpm dlx create-electron-app@latest <项目目录>`
 Fumadocs 模板运行 `pnpm dlx create-fumadocs-app@latest <项目目录>`，保留官方的模板和功能配置选择，用于创建文档站点。仓库：[fuma-nama/fumadocs](https://github.com/fuma-nama/fumadocs)。
 
 unibest 模板运行 `pnpm dlx create-unibest@latest <项目目录>`，保留官方的平台、UI 库、登录策略和多语言等配置选择，用于创建 uni-app 项目。仓库：[feige996/unibest](https://github.com/feige996/unibest)。
+
+Skyroc 模板运行 `pnpm dlx create-skyroc@latest <项目目录>`，默认生成独立的 Admin 项目。通过 `-- --template expo` 可生成 Expo 项目。[官方 CLI 文档](https://github.com/Ohh-889/skyroc/tree/master/packages/@core/create-skyroc)
 
 Shadcn React Template 下载 [bingwu-templates/shadcn-react-template](https://github.com/bingwu-templates/shadcn-react-template) 的完整仓库源码作为项目起点，保留原始包名、许可证和其他文件，不携带 Git 历史。
 
@@ -91,8 +93,6 @@ TanStack Shadcn Admin Dashboard 和 Next Shadcn Admin Dashboard 分别提供 Tan
 
 Shadcn Admin 提供基于 Shadcn 和 Vite 的管理面板，下载 [satnaing/shadcn-admin](https://github.com/satnaing/shadcn-admin) 的 `main` 分支完整仓库源码，不携带 Git 历史。
 
-Skyroc 模板下载 `master` 分支的完整 monorepo，包含 React Admin 和 Expo 应用。[Ohh-889/skyroc](https://github.com/Ohh-889/skyroc)
-
 ## 创建项目
 
 ```bash
@@ -102,6 +102,7 @@ bingwu create my-app -t electron-vite
 bingwu create my-forge-app -t electron-forge
 bingwu create my-docs -t fumadocs
 bingwu create my-uniapp -t unibest
+bingwu create my-skyroc -t skyroc
 bingwu create my-admin -t shadcn-react-template
 bingwu create my-vue-admin -t shadcn-vue-admin
 bingwu create my-pure-admin -t pure-admin-thin
@@ -111,10 +112,10 @@ bingwu create my-next-admin -t next-shadcn-admin-dashboard
 bingwu create my-next-dashboard -t next-shadcn-dashboard-starter
 bingwu create my-tanstack-dashboard -t tanstack-start-dashboard
 bingwu create my-shadcn-admin -t shadcn-admin
-bingwu create my-skyroc -t skyroc
 bingwu create my-library -t starter-ts
 bingwu create my-app -t electron-vite -- --template vue-ts
 bingwu create my-forge-app -t electron-forge -- --template=vite --typescript --package-manager=pnpm
+bingwu create my-skyroc-app -t skyroc -- --template expo
 bingwu create my-admin -t shadcn-react-template --install
 bingwu create my-admin -t shadcn-react-template --no-install
 ```
@@ -173,6 +174,14 @@ bingwu list
       "type": "cli",
       "package": "create-unibest@latest",
       "repo": "https://github.com/feige996/unibest",
+      "args": ["{projectDir}"]
+    },
+    {
+      "id": "skyroc",
+      "name": "Skyroc",
+      "type": "cli",
+      "package": "create-skyroc@latest",
+      "repo": "https://github.com/Ohh-889/skyroc",
       "args": ["{projectDir}"]
     },
     {
@@ -237,13 +246,6 @@ bingwu list
       "type": "github",
       "repo": "https://github.com/satnaing/shadcn-admin",
       "ref": "main"
-    },
-    {
-      "id": "skyroc",
-      "name": "Skyroc",
-      "type": "github",
-      "repo": "https://github.com/Ohh-889/skyroc",
-      "ref": "master"
     },
     {
       "id": "starter-ts",

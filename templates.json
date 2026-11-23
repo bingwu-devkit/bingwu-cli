@@ -34,6 +34,14 @@
       "args": ["{projectDir}"]
     },
     {
+      "id": "skyroc",
+      "name": "Skyroc",
+      "type": "cli",
+      "package": "create-skyroc@latest",
+      "repo": "https://github.com/Ohh-889/skyroc",
+      "args": ["{projectDir}"]
+    },
+    {
       "id": "shadcn-react-template",
       "name": "Shadcn React Template",
       "type": "github",
@@ -95,13 +103,6 @@
       "type": "github",
       "repo": "https://github.com/satnaing/shadcn-admin",
       "ref": "main"
-    },
-    {
-      "id": "skyroc",
-      "name": "Skyroc",
-      "type": "github",
-      "repo": "https://github.com/Ohh-889/skyroc",
-      "ref": "master"
     },
     {
       "id": "starter-ts",

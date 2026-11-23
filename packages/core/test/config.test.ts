@@ -17,6 +17,7 @@ describe('GitHub 统一模板配置', () => {
       'electron-forge',
       'fumadocs',
       'unibest',
+      'skyroc',
       'shadcn-react-template',
       'shadcn-vue-admin',
       'pure-admin-thin',
@@ -26,7 +27,6 @@ describe('GitHub 统一模板配置', () => {
       'next-shadcn-dashboard-starter',
       'tanstack-start-dashboard',
       'shadcn-admin',
-      'skyroc',
       'starter-ts',
     ])
     expect(fetchConfig).toHaveBeenCalledWith(
@@ -52,6 +52,7 @@ describe('GitHub 统一模板配置', () => {
       { id: 'electron-forge', repo: 'electron/forge' },
       { id: 'fumadocs', repo: 'fuma-nama/fumadocs' },
       { id: 'unibest', repo: 'feige996/unibest' },
+      { id: 'skyroc', repo: 'Ohh-889/skyroc' },
     ])
   })
 

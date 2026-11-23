@@ -140,9 +140,30 @@ console.log(JSON.stringify({ count: builtinTemplates.length, load: typeof loadTe
     const list = await run(['list'])
     expect(list.exitCode).toBe(0)
     expect(list.stdout).toContain('electron-vite')
+    expect(list.stdout).toContain('create-skyroc@latest')
     expect(list.stdout).toContain('bingwu-templates/shadcn-react-template#main')
     expect(list.stdout).toContain('Whbbit1999/shadcn-vue-admin#main')
     expect(list.stdout).toContain('bingwu-templates/starter-ts#main')
+  })
+
+  it('使用 Skyroc 官方脚手架并透传 Expo 模板参数', async () => {
+    const result = await run([
+      'create',
+      'my-skyroc-app',
+      '-t',
+      'skyroc',
+      '--',
+      '--template',
+      'expo',
+    ])
+    expect(result.exitCode).toBe(0)
+    const recorded: unknown = JSON.parse(
+      await readFile(path.join(temporary, 'my-skyroc-app', 'arguments.json'), 'utf8'),
+    )
+    expect(recorded).toEqual({
+      args: ['dlx', 'create-skyroc@latest', 'my-skyroc-app', '--template', 'expo'],
+      cwd: temporary,
+    })
   })
 
   it('从远程配置选择脚手架，创建带空格的目录并透传参数', async () => {
